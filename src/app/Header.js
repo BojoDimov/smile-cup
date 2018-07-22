@@ -3,6 +3,7 @@ import { Link, Switch, Route } from 'react-router-dom';
 import { RedirectAction } from '../components';
 import * as UserService from '../services/user';
 import { get } from '../services/fetch';
+import * as Enums from '../enums';
 
 export default class Header extends React.Component {
   constructor(props) {
@@ -23,8 +24,7 @@ export default class Header extends React.Component {
 
     get('/editions')
       .then(editions => {
-        console.log(editions);
-        this.setState({ editions: editions });
+        this.setState({ editions: editions.filter(e => e.status != Enums.Status.DRAFT) });
         document.dispatchEvent(new CustomEvent('react-load'));
       })
   }
@@ -33,13 +33,14 @@ export default class Header extends React.Component {
     return (
       <li key={i}>
         <Link to={`/editions/${edition.id}`}>{edition.name}</Link>
-        <ul>
-          {edition.schemes.map((s, j) => {
-            return (
-              <li key={j}><Link to={`/schemes/${s.id}`}>{s.name}</Link></li>
-            );
-          })}
-        </ul>
+        {edition.schemes.filter(s => s.status != Enums.Status.DRAFT).length > 0 ?
+          <ul>
+            {edition.schemes.filter(s => s.status != Enums.Status.DRAFT).map((s, j) => {
+              return (
+                <li key={j}><Link to={`/schemes/${s.id}`}>{s.name}</Link></li>
+              );
+            })}
+          </ul> : null}
       </li>
     );
   }
@@ -56,19 +57,6 @@ export default class Header extends React.Component {
                 <Link to="/editions">Турнири</Link>
                 <ul>
                   {this.state.editions.map(this.getEditionLink)}
-                  <li><a href="#">Лято 2018</a></li>
-                  <li><a href="#">Лято 2019</a></li>
-                  <li><a href="#">Лято 2020</a></li>
-                  <li>
-                    <a href="#">Лято 2021</a>
-                    <ul>
-                      <li><a href="#">мъже-групи</a></li>
-                      <li><a href="#">мъже-елиминации</a></li>
-                      <li><a href="#">жени-групи</a></li>
-                      <li><a href="#">жени-елиминации</a></li>
-                    </ul>
-                  </li>
-                  <li><a href="#">Лято 2022</a></li>
                 </ul>
               </li>
               <li className={this.state.user ? "" : "break"}><Link to="/ranking">Статистика</Link></li>

@@ -2,6 +2,7 @@ import React from 'react';
 import { get } from '../services/fetch';
 import { Link } from 'react-router-dom';
 import './fast-styles.css';
+import * as Enums from '../enums';
 
 export default class Editions extends React.Component {
   constructor(props) {
@@ -13,7 +14,8 @@ export default class Editions extends React.Component {
 
   componentDidMount() {
     get('/editions')
-      .then(editions => this.setState({ editions: editions }));
+      .then(editions => this.setState({ editions: editions.filter(e => e.status != Enums.Status.DRAFT) }));
+    //.then(editions => this.setState({ editions: editions }));
   }
 
   render() {
@@ -41,7 +43,7 @@ export default class Editions extends React.Component {
 
         <div>
           {hasFinished(edition) ?
-            <span className="special-button b">Резултати</span>
+            <span className="special-button b">Преглед</span>
             : null}
           {!hasStarted(edition) ?
             <Link to={`/editions/${edition.id}`} className="special-button g">Участвай</Link>

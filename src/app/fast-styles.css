@@ -60,12 +60,26 @@
   cursor: not-allowed;
   color: grey;
   border: 1px solid grey;
+  opacity: .5;
 }
 
-.disabled:hover {
+.default {
+  cursor: pointer;
+  color: grey;
+  border: 1px solid grey;
+}
+
+.default:hover{
+  color: white;
+  background-color: grey;
+  border-color: grey;
+  transition: all .25s ease-in-out;
+}
+
+/* .disabled:hover {
   opacity: .5;
   transition: opacity .25s ease-in-out;
-}
+} */
 
 .special-button + .special-button {
   margin-left: 1rem;

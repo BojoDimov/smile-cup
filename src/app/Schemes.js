@@ -2,19 +2,31 @@ import React from 'react';
 import { get } from '../services/fetch';
 import './fast-styles.css';
 import * as UserService from '../services/user';
+import * as Enums from '../enums';
 
 export default class Schemes extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       user: UserService.getUser(),
-      schemes: []
+      schemes: [],
+      enrolled: []
     }
   }
 
   componentDidMount() {
-    get(`/editions/${this.props.match.params['id']}`)
-      .then(edition => this.setState({ schemes: edition.schemes }));
+    let p1 = this.state.user ?
+      get(`/users/${this.state.user.id}/enrolled`)
+        .then(e => {
+          console.log(e);
+          return e.enrolled.concat(e.queue);
+        })
+      : Promise.resolve([]);
+
+    let p2 = get(`/editions/${this.props.match.params['id']}`)
+    //.then(edition => this.setState({ schemes: edition.schemes }));
+    return Promise.all([p1, p2])
+      .then(([enrolled, edition]) => this.setState({ schemes: edition.schemes, enrolled: enrolled }));
   }
 
   render() {
@@ -27,9 +39,26 @@ export default class Schemes extends React.Component {
     );
   }
 
+  enroll(scheme) {
+    console.log('clicked');
+    get(`/schemes/${scheme.id}/enroll?userId=${this.state.user.id}`)
+      .then(() => this.setState({ enrolled: this.state.enrolled.concat([scheme.id]) }));
+  }
+
+  cancelEnroll(scheme) {
+
+    get(`/schemes/${scheme.id}/cancelEnroll?userId=${this.state.user.id}`)
+      .then(() => {
+        let ei = this.state.enrolled.indexOf(scheme.id);
+        let enrolled = this.state.enrolled;
+        enrolled.splice(ei, 1);
+        return this.setState({ enrolled: enrolled })
+      });
+  }
+
   getScheme(scheme, i) {
-    const [errors, messages] = validateEnroll(this.state.user, scheme);
-    console.log(errors, messages);
+    const button = this.getButton(scheme);
+
     return (
       <div className="button list-row" key={i}>
         <img src="../images/smile-logo.jpg" />
@@ -44,30 +73,69 @@ export default class Schemes extends React.Component {
 
         <div style={{ padding: '1rem' }}>
           <div>Записване</div>
-          <div>{getLocaleDate(scheme.registrationStart)} - {getLocaleDate(scheme.registrationEnd)}</div>
+          <div>{getLocaleDateTime(scheme.registrationStart)}</div> <div>{getLocaleDateTime(scheme.registrationEnd)}</div>
         </div>
 
         <div>
-          {errors.length == 0 && messages.length == 0 ?
-            <span className="special-button g">Записване</span>
-            : null}
-
-          {errors.length == 0 && messages.find(m => m.type == 'reg-end') ?
-            <span className="special-button b" title={messages.find(m => m.type == 'reg-end').message}>Записване</span>
-            : null}
-
-          {errors.length > 0 ?
-            <span className="special-button disabled" title={null}>Записване</span>
+          {button ?
+            <span className={`special-button ${button.class}`}
+              title={button.title}
+              onClick={button.onClick}>{button.name}</span>
             : null}
         </div>
       </div>
     );
+  }
+
+  getButton(scheme) {
+    let button = null;
+    if (!this.state.user)
+      return button;
+
+    const age = new Date(new Date() - new Date(this.state.user.birthDate)).getUTCFullYear() - 1970;
+
+    if (this.state.enrolled.find(e => e == scheme.id))
+      return {
+        title: null,
+        name: 'Отписване',
+        class: 'default',
+        onClick: () => this.cancelEnroll(scheme)
+      }
+
+    if (scheme[this.state.user.gender + 'Teams']
+      && (!scheme.ageFrom || scheme.ageFrom < age)
+      && (!scheme.ageTo || scheme.ageTo > age)) {
+      if (new Date() > new Date(scheme.registrationEnd))
+        return {
+          title: 'регистрацията е приключила, ще бъдете записан в опашка',
+          name: 'Записване',
+          class: 'b',
+          onClick: () => this.enroll(scheme)
+        }
+      else
+        return {
+          title: null,
+          name: 'Записване',
+          class: 'g',
+          onClick: () => this.enroll(scheme)
+        }
+    }
+    else
+      return {
+        title: 'не отговаряте на изискванията за тази схема',
+        name: 'Записване',
+        class: 'disabled',
+        onClick: () => null
+      }
   }
 }
 
 function validateEnroll(user, scheme) {
   const errors = [];
   const messages = [];
+  if (!user)
+    return [errors, messages];
+
   const age = new Date(new Date() - new Date(user.birthDate)).getUTCFullYear - 1970;
 
   if (new Date() < new Date(scheme.registrationStart))
@@ -89,10 +157,10 @@ function validateEnroll(user, scheme) {
 
 function getLimitations(scheme) {
   const limitations = [];
-  if (scheme.singleTeams)
-    limitations.push('SGL ' + getSize(scheme));
-  else
-    limitations.push('DBL ' + getSize(scheme));
+  if (scheme.schemeType == Enums.SchemeType.ELIMINATION)
+    limitations.push('K ' + getSize(scheme));
+  if (scheme.schemeType == Enums.SchemeType.GROUP)
+    limitations.push('G ' + getSize(scheme));
   if (scheme.maleTeams)
     limitations.push('M');
   if (scheme.femaleTeams)
@@ -121,4 +189,9 @@ function canEnroll(user, scheme) {
 function getLocaleDate(date) {
   const d = new Date(date);
   return d.toLocaleDateString();
+}
+
+function getLocaleDateTime(date) {
+  const d = new Date(date);
+  return d.toLocaleString();
 }
