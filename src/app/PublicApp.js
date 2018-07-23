@@ -10,6 +10,7 @@ import Auth from './Auth';
 import LogoutEndpoint from './LogoutEndpoint';
 import Editions from './Editions';
 import Schemes from './Schemes';
+import SchemeView from './SchemeView';
 
 
 export class PublicApp extends React.Component {
@@ -23,8 +24,9 @@ export class PublicApp extends React.Component {
           </Route>
           <Route path="/home" component={Home} />
           <Route path="/news" component={News} />
-          <Route path="/editions/:id" component={Schemes} />
+          <Route path="/editions/:id" render={(params) => <Schemes {...params} />} />
           <Route path="/editions" component={Editions} />
+          <Route path="/schemes/:id" component={SchemeView} />
           <Route path="/ranking" component={Ranking} />
           <Route path="/partners" component={Partners} />
           <Route path="/login" component={Auth} />

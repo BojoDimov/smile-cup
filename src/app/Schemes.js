@@ -10,6 +10,7 @@ export default class Schemes extends React.Component {
     this.state = {
       user: UserService.getUser(),
       schemes: [],
+      edition: {},
       enrolled: []
     }
   }
@@ -26,13 +27,14 @@ export default class Schemes extends React.Component {
     let p2 = get(`/editions/${this.props.match.params['id']}`)
     //.then(edition => this.setState({ schemes: edition.schemes }));
     return Promise.all([p1, p2])
-      .then(([enrolled, edition]) => this.setState({ schemes: edition.schemes, enrolled: enrolled }));
+      .then(([enrolled, edition]) => this.setState({ edition: edition, schemes: edition.schemes, enrolled: enrolled }));
   }
 
   render() {
     return (
       <div className="wrapper">
         <div className="container list">
+          <h2>{this.state.edition.name}</h2>
           {this.state.schemes.map(this.getScheme.bind(this))}
         </div>
       </div>
@@ -40,7 +42,6 @@ export default class Schemes extends React.Component {
   }
 
   enroll(scheme) {
-    console.log('clicked');
     get(`/schemes/${scheme.id}/enroll?userId=${this.state.user.id}`)
       .then(() => this.setState({ enrolled: this.state.enrolled.concat([scheme.id]) }));
   }
@@ -60,9 +61,9 @@ export default class Schemes extends React.Component {
     const button = this.getButton(scheme);
 
     return (
-      <div className="button list-row" key={i}>
+      <div className="button list-row" key={i} onClick={() => this.props.history.push(`/schemes/${scheme.id}`)} style={{ cursor: 'pointer' }}>
         <img src="../images/smile-logo.jpg" />
-        <div>
+        <div >
           <div className="list-row-header">{scheme.name}</div>
           <div style={{ fontWeight: 700 }}>{getLocaleDate(scheme.date)}</div>
         </div>
@@ -99,7 +100,10 @@ export default class Schemes extends React.Component {
         title: null,
         name: 'Отписване',
         class: 'default',
-        onClick: () => this.cancelEnroll(scheme)
+        onClick: (e) => {
+          e.stopPropagation();
+          return this.cancelEnroll(scheme)
+        }
       }
 
     if (scheme[this.state.user.gender + 'Teams']
@@ -110,14 +114,20 @@ export default class Schemes extends React.Component {
           title: 'регистрацията е приключила, ще бъдете записан в опашка',
           name: 'Записване',
           class: 'b',
-          onClick: () => this.enroll(scheme)
+          onClick: (e) => {
+            e.stopPropagation();
+            return this.enroll(scheme)
+          }
         }
       else
         return {
           title: null,
           name: 'Записване',
           class: 'g',
-          onClick: () => this.enroll(scheme)
+          onClick: (e) => {
+            e.stopPropagation();
+            return this.enroll(scheme)
+          }
         }
     }
     else
@@ -125,34 +135,11 @@ export default class Schemes extends React.Component {
         title: 'не отговаряте на изискванията за тази схема',
         name: 'Записване',
         class: 'disabled',
-        onClick: () => null
+        onClick: (e) => {
+          e.stopPropagation()
+        }
       }
   }
-}
-
-function validateEnroll(user, scheme) {
-  const errors = [];
-  const messages = [];
-  if (!user)
-    return [errors, messages];
-
-  const age = new Date(new Date() - new Date(user.birthDate)).getUTCFullYear - 1970;
-
-  if (new Date() < new Date(scheme.registrationStart))
-    messages.push({ type: 'reg-start', message: 'регистрацията не е отворена' });
-
-  if (new Date() > new Date(scheme.registrationEnd))
-    messages.push({ type: 'reg-end', message: 'регистрацията е приключила, ще бъдете записан в опашка' });
-
-  if (scheme.singleTeams) {
-    if (!scheme[user.gender + 'Teams'])
-      errors.push('пол');
-
-    if ((scheme.ageFrom && scheme.ageFrom > age) || (scheme.ageTo && scheme.ageTo < age))
-      errors.push('възраст');
-  }
-
-  return [errors, messages];
 }
 
 function getLimitations(scheme) {
