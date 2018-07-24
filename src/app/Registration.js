@@ -7,7 +7,8 @@ export default class Registration extends React.Component {
     super(props);
     this.state = {
       inputType: 'text',
-      errors: {}
+      errors: {},
+      showMessage: false
     }
   }
 
@@ -16,7 +17,12 @@ export default class Registration extends React.Component {
       .catch(err => {
         this.setState({ errors: err });
         throw err;
-      });
+      })
+      .then(res => {
+        this.setState({ showMessage: true });
+        setTimeout(() => this.setState({ showMessage: false }), 5000);
+        return res;
+      })
   }
 
   render() {
@@ -79,6 +85,10 @@ export default class Registration extends React.Component {
             </a>
           </li>
         </ul>
+        {this.state.showMessage ?
+          <div style={{ color: '#84DC00', fontWeight: '700' }}>
+            Вие се регистрирахте успешно!
+        </div> : null}
       </section>
     );
   }
