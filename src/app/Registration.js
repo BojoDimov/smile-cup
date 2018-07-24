@@ -13,6 +13,14 @@ export default class Registration extends React.Component {
   }
 
   register() {
+    if (this.state.password !== this.state.confirmPassword) {
+      this.setState({
+        errors: {
+          confirmPassword: true
+        }
+      });
+      return;
+    }
     return post('/users', this.state)
       .catch(err => {
         this.setState({ errors: err });
@@ -46,6 +54,7 @@ export default class Registration extends React.Component {
             <div className="col-12">
               <input placeholder="Повтори парола" type="password"
                 onChange={e => this.setState({ confirmPassword: e.target.value })} />
+              <div className="error">{this.state.errors.confirmPassword ? '*Моля проверете изписването на паролата' : null}</div>
             </div>
             <div className="col-12">
               <input placeholder="Име" type="text"
