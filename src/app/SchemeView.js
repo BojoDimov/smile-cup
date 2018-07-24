@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Queries from '../services/queries';
+import { BracketPreview } from './bracket/BracketPreview';
 import './scheme-view-styles.css';
 
 export default class SchemeView extends React.Component {
@@ -64,7 +65,7 @@ export default class SchemeView extends React.Component {
             </div>
             {/* {this.getList(this.state.enrollments, 3)} */}
             {this.state.showDraw ?
-              null
+              <BracketPreview draw={this.state.draw} />
               : null}
 
             {this.state.showDraw && !this.state.draw.isDrawn ?

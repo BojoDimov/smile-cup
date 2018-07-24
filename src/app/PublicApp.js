@@ -12,6 +12,7 @@ import Editions from './Editions';
 import Schemes from './Schemes';
 import SchemeView from './SchemeView';
 import User from './User';
+import '../css/styles.css';
 
 
 export class PublicApp extends React.Component {
