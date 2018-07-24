@@ -3,6 +3,7 @@ import { get } from '../services/fetch';
 import './fast-styles.css';
 import * as UserService from '../services/user';
 import * as Enums from '../enums';
+import Queries from '../services/queries';
 
 export default class Schemes extends React.Component {
   constructor(props) {
@@ -16,18 +17,9 @@ export default class Schemes extends React.Component {
   }
 
   componentDidMount() {
-    let p1 = this.state.user ?
-      get(`/users/${this.state.user.id}/enrolled`)
-        .then(e => {
-          console.log(e);
-          return e.enrolled.concat(e.queue);
-        })
-      : Promise.resolve([]);
-
-    let p2 = get(`/editions/${this.props.match.params['id']}`)
-    //.then(edition => this.setState({ schemes: edition.schemes }));
-    return Promise.all([p1, p2])
-      .then(([enrolled, edition]) => this.setState({ edition: edition, schemes: edition.schemes, enrolled: enrolled }));
+    Queries.Schemes
+      .get(this.props.match.params['id'])
+      .then(res => this.setState(res));
   }
 
   render() {

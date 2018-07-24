@@ -1,8 +1,7 @@
 import React from 'react';
-import { get } from '../services/fetch';
 import { Link } from 'react-router-dom';
+import Queries from '../services/queries';
 import './fast-styles.css';
-import * as Enums from '../enums';
 
 export default class Editions extends React.Component {
   constructor(props) {
@@ -13,9 +12,7 @@ export default class Editions extends React.Component {
   }
 
   componentDidMount() {
-    get('/editions')
-      .then(editions => this.setState({ editions: editions.filter(e => e.status != Enums.Status.DRAFT) }));
-    //.then(editions => this.setState({ editions: editions }));
+    Queries.Editions.get().then(editions => this.setState({ editions: editions }))
   }
 
   render() {

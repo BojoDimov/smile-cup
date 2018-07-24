@@ -2,8 +2,8 @@ import React from 'react';
 import { Link, Switch, Route } from 'react-router-dom';
 import { RedirectAction } from '../components';
 import * as UserService from '../services/user';
-import { get } from '../services/fetch';
-import * as Enums from '../enums';
+
+import Queries from '../services/queries';
 
 export default class Header extends React.Component {
   constructor(props) {
@@ -22,20 +22,26 @@ export default class Header extends React.Component {
     });
     document.addEventListener('logout', () => this.setState({ user: null }));
 
-    get('/editions')
+    Queries.Editions.get()
       .then(editions => {
-        this.setState({ editions: editions.filter(e => e.status != Enums.Status.DRAFT) });
+        this.setState({ editions: editions });
         document.dispatchEvent(new CustomEvent('react-load'));
       })
+
+    // get('/editions')
+    //   .then(editions => {
+    //     this.setState({ editions: editions.filter(e => e.status != Enums.Status.DRAFT) });
+    //     document.dispatchEvent(new CustomEvent('react-load'));
+    //   })
   }
 
   getEditionLink(edition, i) {
     return (
       <li key={i}>
         <Link to={`/editions/${edition.id}`}>{edition.name}</Link>
-        {edition.schemes.filter(s => s.status != Enums.Status.DRAFT).length > 0 ?
+        {edition.schemes.length > 0 ?
           <ul>
-            {edition.schemes.filter(s => s.status != Enums.Status.DRAFT).map((s, j) => {
+            {edition.schemes.map((s, j) => {
               return (
                 <li key={j}><Link to={`/schemes/${s.id}`}>{s.name}</Link></li>
               );
