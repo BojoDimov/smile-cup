@@ -29,7 +29,7 @@ const Queries = {
       return Promise
         .all([
           get(`/editions/${editionId}`),
-          user ? get(`/users/${user.id}/enrolled`) : Promise.resolve([[], []])
+          user ? get(`/users/${user.id}/enrolled`) : Promise.resolve({ enrolled: [], queue: [] })
         ])
         .then(([edition, { enrolled, queue }]) => {
           return {
@@ -41,7 +41,9 @@ const Queries = {
         });
     },
     getById: (schemeId) => {
-
+      const user = UserService.getUser();
+      const userQuery = user ? 'userId=' + user.id : '';
+      return get(`/schemes/${schemeId}/collect?${userQuery}`)
     }
   }
 }

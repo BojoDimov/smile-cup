@@ -11,6 +11,7 @@ import LogoutEndpoint from './LogoutEndpoint';
 import Editions from './Editions';
 import Schemes from './Schemes';
 import SchemeView from './SchemeView';
+import User from './User';
 
 
 export class PublicApp extends React.Component {
@@ -24,6 +25,7 @@ export class PublicApp extends React.Component {
           </Route>
           <Route path="/home" component={Home} />
           <Route path="/news" component={News} />
+          <Route path="/users/:id" component={User} />
           <Route path="/editions/:id" render={(params) => <Schemes {...params} />} />
           <Route path="/editions" component={Editions} />
           <Route path="/schemes/:id" component={SchemeView} />

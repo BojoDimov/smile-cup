@@ -26,13 +26,7 @@ export default class Header extends React.Component {
       .then(editions => {
         this.setState({ editions: editions });
         document.dispatchEvent(new CustomEvent('react-load'));
-      })
-
-    // get('/editions')
-    //   .then(editions => {
-    //     this.setState({ editions: editions.filter(e => e.status != Enums.Status.DRAFT) });
-    //     document.dispatchEvent(new CustomEvent('react-load'));
-    //   })
+      });
   }
 
   getEditionLink(edition, i) {
