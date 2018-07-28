@@ -32,6 +32,11 @@
   font-weight: 700;
 }
 
+.special-button.small {
+  padding: .2em .8em;
+  font-weight: 500;
+}
+
 .special-button.g {
   color: #84DC00;
   border:1px solid #84DC00;

@@ -12,6 +12,7 @@ import Editions from './Editions';
 import Schemes from './Schemes';
 import SchemeView from './SchemeView';
 import User from './User';
+import InviteTeammate from './InviteTeammate';
 import '../css/styles.css';
 
 
@@ -29,6 +30,7 @@ export class PublicApp extends React.Component {
           <Route path="/users/:id" component={User} />
           <Route path="/editions/:id" render={(params) => <Schemes {...params} />} />
           <Route path="/editions" component={Editions} />
+          <Route path="/schemes/:id/invite" component={InviteTeammate} />
           <Route path="/schemes/:id" component={SchemeView} />
           <Route path="/ranking" component={Ranking} />
           <Route path="/partners" component={Partners} />

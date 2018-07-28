@@ -69,7 +69,7 @@ export default class Schemes extends React.Component {
           <div>{getLocaleDateTime(scheme.registrationStart)}</div> <div>{getLocaleDateTime(scheme.registrationEnd)}</div>
         </div>
 
-        <div>
+        <div style={{ width: '10rem' }}>
           {button ?
             <span className={`special-button ${button.class}`}
               title={button.title}
@@ -95,6 +95,19 @@ export default class Schemes extends React.Component {
         onClick: (e) => {
           e.stopPropagation();
           return this.cancelEnroll(scheme)
+        }
+      }
+
+    //двойки
+    if (!scheme.singleTeams
+      && (scheme.mixedTeams || scheme[this.state.user.gender + 'Teams']))
+      return {
+        title: null,
+        name: 'Покани',
+        class: 'g',
+        onClick: (e) => {
+          e.stopPropagation();
+          return this.props.history.push(`/schemes/${scheme.id}/invite`);
         }
       }
 

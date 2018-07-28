@@ -18,7 +18,6 @@ export default class Login extends React.Component {
         throw null;
       })
       .then(token => {
-        debugger;
         let user = token.user;
         token.user = undefined;
         UserService.login(token, user);
