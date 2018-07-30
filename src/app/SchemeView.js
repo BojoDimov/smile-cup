@@ -39,7 +39,11 @@ export default class SchemeView extends React.Component {
             </div>
             {/* {this.getList(this.state.enrollments, 3)} */}
             {this.state.showEnrollments ?
-              this.state.enrollments.map((e, i) => <Link to={`/users/${e.user1Id}`} key={i}>{i + 1}. {e.user1Name}</Link>)
+              this.state.enrollments.map((e, i) =>
+                <div>
+                  <Link to={`/users/${e.user1Id}`} key={i}>{i + 1}. {e.user1Name}</Link>
+                  {e.user2Id ? <Link to={`/users/${e.user2Id}`} key={i}> & {e.user2Name}</Link> : null}
+                </div>)
               : null}
 
             {this.state.showEnrollments && this.state.enrollments.length == 0 ?
@@ -59,7 +63,7 @@ export default class SchemeView extends React.Component {
               <div>Няма резерви</div> : null}
           </div>
 
-          <div className="scheme-list">
+          <div className="scheme-list" style={{ overflowX: 'auto' }}>
             <div className="scheme-list-header" onClick={() => this.setState({ showDraw: !this.state.showDraw })}>
               Схема
             </div>

@@ -97,19 +97,15 @@ export class BracketGroup extends React.Component {
         <tbody>
           {this.props.group.teams.map((t1, i) => (
             <tr key={i}>
-              <td className="team-label">
-                <span>{`${t1.order}. `}</span>
-                <TeamLabel team={t1.User}
-                  schemeId={this.props.group.schemeId}
-                  onRemove={() => this.removeTeam(t1.User)}
-                  onChange={team => this.addTeam(t1, team)} />
+              <td className="team-label" style={{ display: 'flex', alignItems: 'center' }}>
+                <div>{`${t1.order}. `}</div>
+                <div style={{ marginLeft: '.5rem' }}><TeamLabel team={t1.team} schemeId={this.props.group.schemeId} /></div>
               </td>
               {this.props.group.teams.map((t2, j) => (
-                <td key={j}>
+                <td key={j} style={{ minWidth: '4rem' }}>
                   {i == j ? <span>x</span> :
                     <React.Fragment>
                       <Score {...this.getScore(t1, t2) } />
-                      <MatchScore match={this.getMatch(t1, t2)} refresh={this.props.refresh} />
                     </React.Fragment>
                   }
                 </td>

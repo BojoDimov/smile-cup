@@ -26,6 +26,6 @@ export class Score extends React.Component {
             );
         })}
       </div>
-    else return null;
+    else return <span><i className="score">--</i></span>;
   }
 }

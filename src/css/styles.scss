@@ -3,7 +3,6 @@
 
 table {
   .score{
-    font-size: .8em;
     font-weight: 700;
     sup {
       font-size: .8em;
@@ -13,6 +12,8 @@ table {
   td {
     vertical-align: middle;
   }
+  
+  margin: 0;
 }
 
 .round-robin-table{
@@ -55,27 +56,30 @@ table {
   }
 }
 
-.elimination-table {
-  table-layout: fixed;
+table.elimination-table {
+  table-layout: auto;
+  border-collapse: separate;
+  border-spacing: 1rem;
+  font-size: .8rem;
+  background-color: white; 
 
   th {
     border-bottom: 1px solid $primary;
   }
 
   .td-container{
-    display: flex;
-    align-items: center;
     border: .5px solid rgba(153, 153, 153, 0.50);
-    border-left:none; 
-    padding-right: .8rem;
+    border-radius: 5px;
+    padding-left: .5rem;
+    padding-right: 2rem;
   }
 
   .number {
-    width: 2em;
+    width: 1.5rem;
   }
 
   .seed {
-    width: 2em;
+    width: 1.5rem;
     color: #AEAEAE;
   }
 
@@ -85,23 +89,14 @@ table {
 
   .team-label{
     border: .5px solid rgba(153, 153, 153, 0.25);
-    width: 12em;
-    height: auto;
+    min-width: 12em;
     min-height: 2em;
+    border-radius: 5px;
+    text-align: center;
     word-wrap: break-word;
   }
 
   .match-table {
-    width: 18rem;
-    th {
-      display: table-cell;
-      border: none;
-    }
-
-    td{
-      display: table-cell;
-      padding: .5rem 0;
-      // border: 1px solid black;
-    }
+    min-width: 14rem;
   }
 }
