@@ -2,6 +2,7 @@ import React from 'react';
 
 export class Score extends React.Component {
   render() {
+    console.log(this.props.set)
     if (this.props.withdraw) {
       return <i className="score">{`отказал се играч ${this.props.withdraw}`}</i>
     }

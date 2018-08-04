@@ -5,6 +5,9 @@ console.log(env);
 console.log(config);
 
 module.exports = {
+  imgUrl: function (id) {
+    return config.backend + `/files/${id}`;
+  },
   post: function (path, data, onSuccess, onError) {
     let options = {
       body: JSON.stringify(data), // must match 'Content-Type' header

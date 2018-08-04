@@ -3,6 +3,7 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import Header from './Header';
 import Home from './Home';
 import News from './News';
+import NewsView from './NewsView';
 import Ranking from './Ranking';
 import Partners from './Partners';
 import Footer from './Footer';
@@ -26,6 +27,7 @@ export class PublicApp extends React.Component {
             <Redirect to="/home" />
           </Route>
           <Route path="/home" component={Home} />
+          <Route path="/news/:id" component={NewsView} />
           <Route path="/news" component={News} />
           <Route path="/users/:id" component={User} />
           <Route path="/editions/:id" render={(params) => <Schemes {...params} />} />
