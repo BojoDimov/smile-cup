@@ -84,7 +84,7 @@ export default class Header extends React.Component {
 export class HeroComponent extends React.Component {
   render() {
     return (
-      <section id="hero" className="container">
+      <section id="hero" className="container" style={{ marginTop: '2rem' }}>
         <header>
           <h2>Албена 2018</h2>
         </header>

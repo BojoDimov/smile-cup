@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import { get, imgUrl } from '../services/fetch';
 
 export default class News extends React.Component {
   constructor(props) {
@@ -7,6 +9,17 @@ export default class News extends React.Component {
       news: []
     }
   }
+
+  componentDidMount() {
+    get('/news').then(e => this.setState({ news: e }));
+  }
+
+  getBy3() {
+    for (let i = 0; i < this.state.news; i++) {
+
+    }
+  }
+
   render() {
     return (
       <div class="wrapper">
@@ -15,27 +28,29 @@ export default class News extends React.Component {
             <h2>Новини</h2>
           </header>
 
-          <div class="row features">
-            <section class="col-4 col-12-narrower feature">
-              <div class="image-wrapper first">
-                <a href="#" class="image featured first"><img style={{ maxHeight: '15rem', width: 'auto' }} src="images/6.png" alt="" /></a>
-              </div>
-              <header>
-                <h2>Форматът „двойки жени“ също ще е част от турнира Smile CUP</h2>
-              </header>
-              <p>Така форматите на състезание стават цели пет – сингъл мъже, сингъл 45+, двойки мъже, двойки микс и добавеният нов двойки жени. </p>
-            </section>
 
-            <section class="col-4 col-12-narrower feature">
-              <div class="image-wrapper">
-                <a href="#" class="image featured"><img style={{ maxHeight: '15rem', width: 'auto', margin: 'auto' }} src="images/00731427.jpg" alt="" /></a>
+          {this.state.news
+            .map((_, i) => i % 3 == 0 ? this.state.news.slice(i, i + 3) : [])
+            .filter(e => e.length)
+            .map(arr => (
+              <div className="row features">
+                {arr.map((n, i) => (
+                  <section className="col-4 col-12-narrower feature">
+                    <div className={"image-wrapper" + (i == 0 ? " first" : "")}>
+                      <Link to={`/news/${n.id}`} className="image featured">
+                        <img style={{ maxHeight: '15rem', width: 'auto', margin: 'auto' }} src={imgUrl(n.fileId)} />
+                      </Link>
+                    </div>
+                    <header>
+                      <h2>{n.heading}</h2>
+                    </header>
+                    <p>{n.subject}</p>
+                  </section>
+                ))}
               </div>
-              <header>
-                <h2>Любителският тенис с грандиозен турнир в края на лятото</h2>
-              </header>
-              <p>Любителският тенис сезон е в началото си. Всички сме готови за прекрасни месеци, в които ще се насладим на любимия спорт и ще участваме в различни турнири.</p>
-            </section>
-          </div>
+            ))}
+
+
         </section>
       </div>
     );
