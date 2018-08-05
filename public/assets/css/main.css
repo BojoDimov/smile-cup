@@ -2099,9 +2099,23 @@ input, select, textarea {
 
 	#promo-wrapper {
 		position: relative;
-		background-image: url("images/overlay.png"), url("../../images/promo.jpg");
+		/* background-image: url("images/overlay.png"), url("../../images/Tennis-Wallpapers-21-2048-x-1257.jpg");
 		background-size: 192px 192px, cover;
-		background-position: top left, center center;
+    background-position: top left, center center; */
+    background-image: url("images/header.svg");
+		background-image: url("images/overlay.png"), url("images/header.svg"), -moz-linear-gradient(75deg, #FF7088 15%, #F2B69D 55%);
+		background-image: url("images/overlay.png"), url("images/header.svg"), -webkit-linear-gradient(75deg, #FF7088 15%, #F2B69D 55%);
+		background-image: url("images/overlay.png"), url("images/header.svg"), -ms-linear-gradient(75deg, #FF7088 15%, #F2B69D 55%);
+		background-image: url("images/overlay.png"), url("images/header.svg"), linear-gradient(75deg, #FF7088 15%, #F2B69D 55%);
+		background-color: #f08c89;
+		background-size: 100% 620%;
+		background-size: 128px 128px, 100% 620%, auto;
+		background-repeat: repeat, no-repeat, no-repeat;
+    
+    /* background-image: url("../../images/pic04.jpg");
+		background-size: cover;
+    background-position:  center center; */
+    
 		color: #fff;
 		text-align: center;
 		padding: 6em 0 6em 0;
