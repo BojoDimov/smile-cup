@@ -42,7 +42,7 @@ export default class Home extends React.Component {
         </div>
         <div id="promo-wrapper">
           <section>
-            <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-around', width: '50%', margin: 'auto' }}>
               <div>
                 <img style={{ width: '4em' }} src="images/trophy.svg" />
                 <div style={{ color: 'white', fontWeight: '700' }}>5</div>

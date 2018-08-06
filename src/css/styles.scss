@@ -1,6 +1,19 @@
 @import 'variables';
 @import 'animations';
 
+#footer img {
+  width: 50px;
+  cursor: pointer;
+}
+
+#footer a {
+  border: none;
+}
+
+#footer a + a {
+  margin-left: .5rem;
+}
+
 table {
   .score{
     font-weight: 700;
