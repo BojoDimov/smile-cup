@@ -5,7 +5,9 @@ export default class User extends React.Component {
     return (
       <div className="wrapper">
         <div className="container">
-          User page under construction
+          <header class="major">
+            <h2>Потребител</h2>
+          </header>
         </div>
       </div>
     );

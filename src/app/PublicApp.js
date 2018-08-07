@@ -14,6 +14,9 @@ import Schemes from './Schemes';
 import SchemeView from './SchemeView';
 import User from './User';
 import InviteTeammate from './InviteTeammate';
+import Contacts from './Contacts';
+import Faq from './Faq';
+import Advertisement from './Advertisement';
 import '../css/styles.css';
 
 
@@ -38,11 +41,17 @@ export class PublicApp extends React.Component {
           <Route path="/partners" component={Partners} />
           <Route path="/login" component={Auth} />
           <Route path="/logout" component={LogoutEndpoint} />
+          <Route path="/contacts" component={Contacts} />
+          <Route path="/advertisement" component={Advertisement} />
+          <Route path="/faq" component={Faq} />
           <Route>
             <Redirect to="/home" />
           </Route>
         </Switch>
-        <Footer />
+        <Switch>
+          <Route path="/*/*" render={(params) => <Footer {...params} level={1} />} />
+          <Route path="/*" render={(params) => <Footer {...params} level={0} />} />
+        </Switch>
       </div>
     );
   }

@@ -59,13 +59,13 @@ export default class Header extends React.Component {
                   {this.state.editions.map(this.getEditionLink)}
                 </ul>
               </li>
-              <li className={this.state.user ? "" : "break"}><Link to="/ranking">Статистика</Link></li>
+              <li className={this.state.user ? "" : "break"}><Link to="/ranking">Ранглиста</Link></li>
               <li className={this.state.user ? "break" : ""}><Link to="/partners">Партньори</Link></li>
               <li></li>
               {this.state.user ? <li>
-                <a><i className="fas fa-user"></i> <span>{this.state.user.name}</span></a>
+                <Link to={`/users/${this.state.user.id}`}><i className="fas fa-user"></i> <span>{this.state.user.name}</span></Link>
                 <ul>
-                  <li><a href="#">Профил</a></li>
+                  <li><Link to={`/users/${this.state.user.id}`}>Профил</Link></li>
                   <li><Link to="/logout">Изход</Link></li>
                 </ul>
               </li> : null}
