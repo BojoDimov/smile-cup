@@ -124,6 +124,10 @@ table td {
   vertical-align: middle;
 }
 
+table a {
+  border: none;
+}
+
 .round-robin-table {
   border-spacing: 0;
   width: 100%;

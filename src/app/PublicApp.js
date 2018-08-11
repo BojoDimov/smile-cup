@@ -12,6 +12,7 @@ import LogoutEndpoint from './LogoutEndpoint';
 import Editions from './Editions';
 import Schemes from './Schemes';
 import SchemeView from './SchemeView';
+import SchemeBracketView from './SchemeBracketView';
 import User from './User';
 import InviteTeammate from './InviteTeammate';
 import Contacts from './Contacts';
@@ -38,6 +39,7 @@ export class PublicApp extends React.Component {
           <Route path="/editions" component={Editions} />
           <Route path="/schemes/:id/invite" component={InviteTeammate} />
           <Route path="/schemes/:id" component={SchemeView} />
+          <Route path="/bracket/:id" component={SchemeBracketView} />
           <Route path="/ranking" component={Ranking} />
           <Route path="/partners" component={Partners} />
           <Route path="/login" component={Auth} />
