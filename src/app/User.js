@@ -27,13 +27,16 @@ export default class User extends React.Component {
 
     let input = document.getElementById('profile-image');
     let self = this;
+
     input.addEventListener('change', e => {
       if (input.files[0])
-        file(input.files[0]).then(e => {
-          let user = self.state.user;
-          user.details.profilePictureId = e.id;
-          this.setState({ user: user });
-        });
+        file(input.files[0])
+          .then(e => {
+            let user = self.state.user;
+            user.details.profilePictureId = e.id;
+            this.setState({ user: user });
+          })
+          .catch(() => input.value = '');
     });
   }
 
@@ -78,7 +81,7 @@ export default class User extends React.Component {
                 imageId={this.state.user.details.profilePictureId}
                 gender={this.state.user.gender} />
 
-              <input id="profile-image" type="file" style={{ display: (this.state.isInEditMode ? '' : 'none') }} />
+              <input id="profile-image" type="file" accept=".jpg, .jpeg, .png" style={{ display: (this.state.isInEditMode ? '' : 'none') }} />
             </div>
 
             <div>

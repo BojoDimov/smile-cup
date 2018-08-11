@@ -31,7 +31,7 @@ export default class SchemeView extends React.Component {
     return (
       <div className="wrapper">
         <div className="container">
-          <h2>{this.state.scheme.TournamentEdition.name} - {this.state.scheme.name}</h2>
+          <h2 style={{ textAlign: 'center' }}>{this.state.scheme.TournamentEdition.name} - {this.state.scheme.name}</h2>
 
           <div className="scheme-list">
             <div className="scheme-list-header" onClick={() => this.setState({ showEnrollments: !this.state.showEnrollments })}>
