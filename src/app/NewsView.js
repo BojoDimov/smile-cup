@@ -1,5 +1,5 @@
 import React from 'react';
-import { get } from '../services/fetch';
+import { get, imgUrl } from '../services/fetch';
 
 export default class NewsView extends React.Component {
   constructor(props) {
@@ -43,8 +43,11 @@ export default class NewsView extends React.Component {
           {this.state.news ?
             <React.Fragment>
               <article id="content">
-                {/* <div style={{ display: 'flex', marginBottom: '1rem' }}> */}
-                {/* <a href="#" class="image"><img style={{ maxHeight: '25rem', width: 'auto' }} src="../images/00731427.jpg" alt="" /></a> */}
+                {this.state.news.fileId ?
+                  <img style={{ maxHeight: '25rem', width: 'auto', float: 'left', marginRight: '2rem' }}
+                    src={imgUrl(this.state.news.fileId)}
+                    alt="" /> : null}
+
                 <header style={{ alignSelf: 'flex-end' }}>
                   <h2>{this.state.news.heading}</h2>
                 </header>
