@@ -11,7 +11,7 @@ export default class Login extends React.Component {
     }
   }
 
-  login() {
+  login(redirect) {
     return post('/login', this.state)
       .catch(err => {
         this.setState({ errors: err })
@@ -21,6 +21,8 @@ export default class Login extends React.Component {
         let user = token.user;
         token.user = undefined;
         UserService.login(token, user);
+        if (redirect)
+          window.location = '/'
         return Promise.resolve();
       })
   }
@@ -37,7 +39,11 @@ export default class Login extends React.Component {
               <input name="email" placeholder="Е-майл" type="text" onChange={e => this.setState({ email: e.target.value })} />
             </div>
             <div className="col-12">
-              <input name="password" placeholder="Парола" type="password" onChange={e => this.setState({ password: e.target.value })} />
+              <input name="password"
+                placeholder="Парола"
+                type="password"
+                onKeyPress={(e) => e.key == 'Enter' ? this.login(true) : null}
+                onChange={e => this.setState({ password: e.target.value })} />
             </div>
             {this.state.errors.login ? <div className="error">
               *Неправилно потребителско име/парола
