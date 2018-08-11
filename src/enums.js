@@ -8,5 +8,23 @@ module.exports = {
   SchemeType: {
     GROUP: 'round-robin',
     ELIMINATION: 'elimination'
+  },
+  CourtType: {
+    CLAY: 'clay',
+    HARD: 'hard',
+    GRASS: 'grass',
+    INDOOR: 'indoor'
+  },
+  BackhandType: {
+    ONE: '1h',
+    TWO: '2h'
+  },
+  PlayStyle: {
+    LEFT: 'left-handed',
+    RIGHT: 'right-handed'
+  },
+  Gender: {
+    MALE: 'male',
+    FEMALE: 'female'
   }
 }

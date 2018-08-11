@@ -1,17 +1,84 @@
 @import 'variables';
 @import 'animations';
 
-#footer img {
-  width: 50px;
-  cursor: pointer;
+#footer {
+  img{
+    width: 50px;
+    cursor: pointer;
+  }
+
+  a + a{
+    margin-left: 3rem;
+  }
+
+  @media screen and(max-width: 500px) {
+    a + a {
+      margin-left: 1rem;
+    }
+
+    img {
+      width: 40px;
+    }
+  }
 }
 
 #footer a {
   border: none;
 }
 
-#footer a + a {
-  margin-left: 3rem;
+#user-details {
+  @media screen and(max-width: 500px) {
+    font-size: .8em;
+  }
+
+  img {
+    width: 200px;
+  }
+
+  input, select {
+    padding: .3em;
+    border-radius: 5px;
+  }
+}
+
+.trapezoid {
+  width: 15rem;
+  text-align: center;
+  height: 0;
+  position: relative;
+  box-sizing: content-box;
+
+   @media screen and(max-width: 500px) {
+    width: 10rem;
+  }
+}
+
+.trapezoid-r {
+  @extend .trapezoid;
+  border-right: 25px solid transparent;
+  border-top: 34px solid #f97c91;
+  border-left: 0px solid transparent;
+
+  span{
+    position: absolute;
+    top: -30px;
+    left: 10%;
+    color: #fff;
+  }
+}
+
+.trapezoid-l{
+  @extend .trapezoid;
+  border-right: 0px solid transparent;
+  border-bottom: 34px solid #1e9bf7;
+  border-left: 25px solid transparent;
+
+  span {
+    position: absolute;
+    top: 4px;
+    right: 10%;
+    color: #fff;
+  }
 }
 
 table {

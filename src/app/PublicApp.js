@@ -17,6 +17,7 @@ import InviteTeammate from './InviteTeammate';
 import Contacts from './Contacts';
 import Faq from './Faq';
 import Advertisement from './Advertisement';
+import Gallery from './Gallery';
 import '../css/styles.css';
 
 
@@ -44,6 +45,7 @@ export class PublicApp extends React.Component {
           <Route path="/contacts" component={Contacts} />
           <Route path="/advertisement" component={Advertisement} />
           <Route path="/faq" component={Faq} />
+          <Route path="/gallery" component={Gallery} />
           <Route>
             <Redirect to="/home" />
           </Route>
