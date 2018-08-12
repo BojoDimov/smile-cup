@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { post, get } from '../services/fetch';
 import * as UserService from '../services/user';
 
@@ -62,7 +63,7 @@ export default class InviteTeammate extends React.Component {
   render() {
     return (
       <div className="wrapper">
-        <div className="container list">
+        <div className="container list list-condensed">
           <h2>{this.state.scheme.TournamentEdition.name} - {this.state.scheme.name} - Избор на партньор</h2>
           <form onSubmit={(e) => this.search(e)}>
             <div className="row gtr-50">
@@ -89,9 +90,11 @@ export default class InviteTeammate extends React.Component {
     let button = this.getButton(user);
 
     return (
-      <div className="button list-row" key={i} style={{ textAlign: 'left' }}>
+      <div className="list-row" key={i} style={{ textAlign: 'left' }}>
         {/* list-row-header */}
-        <div style={{ flexGrow: 1, flexBasis: '20rem' }}>{user.name}</div>
+        <div style={{ flexGrow: 1, flexBasis: '20rem' }}>
+          <Link to={`/users/${user.id}`}>{user.name}</Link>
+        </div>
         <div style={{ width: '12rem' }}>
           {button ?
             <span className={`special-button small ${button.class}`}

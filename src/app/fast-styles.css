@@ -3,6 +3,20 @@
   flex-direction: column;
 }
 
+.list-condensed .list-row {
+  border-bottom: 1px solid #c9c9c9;
+  padding-bottom: .5rem;
+}
+
+.list-condensed a {
+  border: none;
+}
+
+.list-condensed .special-button{
+  width: 100%;
+  text-align: center;
+}
+
 .list-row {
   display: flex;
   align-items: center;

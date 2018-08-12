@@ -56,7 +56,11 @@ export default class SchemeView extends React.Component {
             </div>
             {/* {this.getList(this.state.enrollments, 3)} */}
             {this.state.showQueue ?
-              this.state.queue.map((e, i) => <Link to={`/users/${e.user1Id}`} key={i}>{i + 1}. {e.user1Name}</Link>)
+              this.state.queue.map((e, i) =>
+                <div>
+                  <Link to={`/users/${e.user1Id}`} key={i}>{i + 1}. {e.user1Name}</Link>
+                  {e.user2Id ? <Link to={`/users/${e.user2Id}`} key={i}> & {e.user2Name}</Link> : null}
+                </div>)
               : null}
 
             {this.state.showQueue && this.state.queue.length == 0 ?

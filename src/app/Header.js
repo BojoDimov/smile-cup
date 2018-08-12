@@ -62,7 +62,7 @@ export default class Header extends React.Component {
               <li ><Link to="/ranking">Ранглиста</Link></li>
               <li className="break"><Link to="/partners">Партньори</Link></li>
               <li><Link to="/gallery">Галерия</Link></li>
-              <li>{this.state.user ? null : <Link to="/contacts">За нас</Link>}</li>
+              <li>{this.state.user ? null : <Link to="/login">Вход</Link>}</li>
               {this.state.user ? <li>
                 <Link to={`/users/${this.state.user.id}`}><i className="fas fa-user"></i> <span>{this.state.user.name}</span></Link>
                 <ul>
