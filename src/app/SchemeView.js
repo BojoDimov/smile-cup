@@ -70,8 +70,8 @@ export default class SchemeView extends React.Component {
           <div className="scheme-list" style={{ overflowX: 'auto' }}>
             <div className="scheme-list-header" onClick={() => this.setState({ showDraw: !this.state.showDraw })}>
               Схема
-              {this.state.showDraw ?
-                <div style={{ fontSize: '.5em', textDecoration: 'underline' }}>
+              {this.state.showDraw && this.state.draw.isDrawn ?
+                <div style={{ fontSize: '.5em', marginTop: '1rem', textDecoration: 'underline' }}>
                   <Link to={`/bracket/${this.state.scheme.id}`}>преглед </Link>
                 </div> : null}
             </div>

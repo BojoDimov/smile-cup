@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { post } from '../services/fetch';
 import * as UserService from '../services/user';
 import { RedirectAction } from '../components';
@@ -51,9 +52,11 @@ export default class Login extends React.Component {
           </div>
         </form>
         <ul className="actions">
-          <RedirectAction onSuccess="/news" onClick={() => this.login()}>
+          <li><RedirectAction onSuccess="/news" onClick={() => this.login()}>
             <a className="button">Вход</a>
           </RedirectAction>
+          </li>
+          <li><Link to="/recovery">Забравена парола</Link></li>
         </ul>
       </section>
     );

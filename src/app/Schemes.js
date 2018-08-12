@@ -150,15 +150,15 @@ export default class Schemes extends React.Component {
 function getLimitations(scheme) {
   const limitations = [];
   if (scheme.schemeType == Enums.SchemeType.ELIMINATION)
-    limitations.push('K ' + getSize(scheme));
+    limitations.push('елиминации ' + getSize(scheme));
   if (scheme.schemeType == Enums.SchemeType.GROUP)
-    limitations.push('G ' + getSize(scheme));
+    limitations.push('групи ' + getSize(scheme));
   if (scheme.maleTeams)
-    limitations.push('M');
+    limitations.push('мъже');
   if (scheme.femaleTeams)
-    limitations.push('F');
+    limitations.push('жени');
   if (scheme.mixedTeams)
-    limitations.push('Mixed');
+    limitations.push('микс');
   if (scheme.ageFrom || scheme.ageTo)
     limitations.push(scheme.ageFrom + ' - ' + scheme.ageTo);
 

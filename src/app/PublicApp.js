@@ -19,6 +19,7 @@ import Contacts from './Contacts';
 import Faq from './Faq';
 import Advertisement from './Advertisement';
 import Gallery from './Gallery';
+import Recovery from './Recovery';
 import '../css/styles.css';
 
 
@@ -48,6 +49,7 @@ export class PublicApp extends React.Component {
           <Route path="/advertisement" component={Advertisement} />
           <Route path="/faq" component={Faq} />
           <Route path="/gallery" component={Gallery} />
+          <Route path="/recovery" render={(params) => <Recovery {...params} />} />
           <Route>
             <Redirect to="/home" />
           </Route>
