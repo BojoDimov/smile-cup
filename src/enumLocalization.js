@@ -14,5 +14,9 @@ export default {
   PlayStyle: {
     [Enums.PlayStyle.LEFT]: 'лява ръка',
     [Enums.PlayStyle.RIGHT]: 'дясна ръка'
+  },
+  Gender: {
+    [Enums.Gender.FEMALE]: 'жена',
+    [Enums.Gender.MALE]: 'мъж'
   }
 };

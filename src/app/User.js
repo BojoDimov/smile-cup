@@ -86,6 +86,7 @@ export default class User extends React.Component {
 
             <div>
               <DataBox label="Име" data={user.name} />
+              <DataBox label="Пол" data={EnumsLocalization.Gender[user.gender]} />
               <DataBox label="Рожденна дата" data={this.getDate(user.birthDate)} />
 
               {this.state.isInEditMode ?
