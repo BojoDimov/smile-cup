@@ -72,7 +72,7 @@ function error_handler(res) {
     return res.json().then(err => { throw err });
   if (res.status === 401) {
     window.localStorage.setItem('token', null);
-    window.location.replace('login');
+    window.location = '/';
   }
   else return res;
 }
