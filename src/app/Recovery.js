@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { get, post } from '../services/fetch';
-import * as qs from 'query-string';
 
 export default class Recovery extends React.Component {
   constructor(props) {
@@ -12,8 +11,13 @@ export default class Recovery extends React.Component {
     }
   }
 
+  parse(query) {
+    let token = query.split('token=')[1];
+    return token;
+  }
+
   componentDidMount() {
-    this.setState({ token: qs.parse(this.props.location.search).token });
+    this.setState({ token: this.parse(this.props.location.search) });
   }
 
   sendPasswordRecovery() {
@@ -49,7 +53,7 @@ export default class Recovery extends React.Component {
               <header>
                 <h2>Възстановяване на парола</h2>
               </header>
-              <form style={{ display: 'flex', justifyContent: 'center' }}>
+              <form style={{ display: 'flex', justifyContent: 'center' }} onSubmit={(e) => e.preventDefault()}>
                 <div className="row gtr-50" style={{ maxWidth: '35rem' }}>
                   <div className="col-12">
                     Моля въведете новата си парола. Като допълнителна мярка за защита ви молим да въведете и датата си на раждане.
@@ -97,7 +101,7 @@ export default class Recovery extends React.Component {
             <header>
               <h2>Възстановяване на парола</h2>
             </header>
-            <form style={{ display: 'flex', justifyContent: 'center' }}>
+            <form style={{ display: 'flex', justifyContent: 'center' }} onSubmit={(e) => e.preventDefault()}>
               <div className="row gtr-50" style={{ maxWidth: '35rem' }}>
                 <div className="col-12">
                   Моля въведете Вашият имейл. Ще ви бъде изпратено съобщение с инструкции как да възстановите паролата си
