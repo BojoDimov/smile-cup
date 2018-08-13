@@ -7,7 +7,7 @@ import { get } from '../../services/fetch';
 export class RoundRobinBracket extends React.Component {
   render() {
     return (
-      <div>
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
         {this.props.groups.map((group, i) => (
           <BracketGroup key={i} group={group} refresh={this.props.refresh} />
         ))}
@@ -97,7 +97,7 @@ export class BracketGroup extends React.Component {
         <tbody>
           {this.props.group.teams.map((t1, i) => (
             <tr key={i}>
-              <td className="team-label" style={{ display: 'flex', alignItems: 'center' }}>
+              <td className="team-label" style={{ display: 'flex' }}>
                 <div>{`${t1.order}. `}</div>
                 <div style={{ marginLeft: '.5rem' }}><TeamLabel team={t1.team} schemeId={this.props.group.schemeId} /></div>
               </td>

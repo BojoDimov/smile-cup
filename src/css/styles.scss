@@ -103,8 +103,17 @@ table {
 
 .round-robin-table{
   border-spacing: 0;
+  // color: white;
+  // background-image: -moz-linear-gradient(75deg, #385BA8 15%, #1FA0FF 55%);
+  // background-image:  -webkit-linear-gradient(75deg, #385BA8 15%, #1FA0FF 55%);
+  // background-image:  -ms-linear-gradient(75deg, #385BA8 15%, #1FA0FF 55%);
+  // background-image:  linear-gradient(75deg, #385BA8 15%, #1FA0FF 55%);
+  // background-size:  auto;
+  // background-repeat:  no-repeat;
+
   tr {
     padding: 0;
+    border-bottom: 1px solid #c9c9c9;
   }
 
   th {

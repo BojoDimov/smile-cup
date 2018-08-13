@@ -136,6 +136,7 @@ table a {
 
 .round-robin-table tr {
   padding: 0;
+  border-bottom: 1px solid #c9c9c9;
 }
 
 .round-robin-table th {
