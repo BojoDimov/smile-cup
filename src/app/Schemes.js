@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { get } from '../services/fetch';
 import './fast-styles.css';
 import * as UserService from '../services/user';
@@ -53,10 +54,12 @@ export default class Schemes extends React.Component {
     const button = this.getButton(scheme);
 
     return (
-      <div className="button list-row" key={i} onClick={() => this.props.history.push(`/schemes/${scheme.id}`)} style={{ cursor: 'pointer' }}>
+      <div className="button list-row" key={i} >
         <img src="../images/smile-logo.jpg" />
         <div >
-          <div className="list-row-header">{scheme.name}</div>
+          <div className="list-row-header"
+            style={{ cursor: 'pointer' }}
+            onClick={() => this.props.history.push(`/schemes/${scheme.id}`)}>{scheme.name}</div>
           <div style={{ fontWeight: 700 }}>{getLocaleDate(scheme.date)}</div>
         </div>
 
@@ -64,10 +67,7 @@ export default class Schemes extends React.Component {
           {getLimitations(scheme)}
         </div>
 
-        <div style={{ padding: '1rem' }}>
-          <div>Записване</div>
-          <div>{getLocaleDateTime(scheme.registrationStart)}</div> <div>{getLocaleDateTime(scheme.registrationEnd)}</div>
-        </div>
+        <SchemeInfo scheme={scheme} />
 
         <div style={{ width: '10rem' }}>
           {button ?
@@ -86,6 +86,17 @@ export default class Schemes extends React.Component {
       return button;
 
     const age = new Date(new Date() - new Date(this.state.user.birthDate)).getUTCFullYear() - 1970;
+
+    if (scheme.status == Enums.Status.FINALIZED)
+      return {
+        title: null,
+        name: 'Преглед',
+        class: 'b',
+        onClick: (e) => {
+          e.stopPropagation();
+          return this.props.history.push(`/schemes/${scheme.id}`);
+        }
+      }
 
     if (this.state.enrolled.find(e => e == scheme.id))
       return {
@@ -144,6 +155,46 @@ export default class Schemes extends React.Component {
           e.stopPropagation()
         }
       }
+  }
+}
+
+export class SchemeInfo extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      winner: {
+        user1: {}
+      }
+    }
+  }
+
+  componentDidMount() {
+    if (this.props.scheme.status == Enums.Status.FINALIZED)
+      get(`/schemes/${this.props.scheme.id}/winner`)
+        .then(e => this.setState({ winner: e }));
+  }
+
+  render() {
+    let scheme = this.props.scheme;
+    if (scheme.status == Enums.Status.FINALIZED)
+      return (
+        <div style={{ padding: '1rem', width: '14rem' }}>
+          <div>{`Победител${!scheme.singleTeams ? 'и:' : ':'}`}</div>
+          <Link style={{ display: 'block', border: 'none' }}
+            to={`/users/${this.state.winner.user1Id}`}>{this.state.winner.user1.name}</Link>
+          {this.state.winner.user2 ?
+            <Link style={{ display: 'block', border: 'none' }}
+              to={`/users/${this.state.winner.user2Id}`}>{this.state.winner.user2.name}</Link>
+            : null}
+        </div>
+      );
+    else
+      return (
+        <div style={{ padding: '1rem', width: '14rem' }}>
+          <div>Записване</div>
+          <div>{getLocaleDateTime(scheme.registrationStart)}</div> <div>{getLocaleDateTime(scheme.registrationEnd)}</div>
+        </div>
+      );
   }
 }
 

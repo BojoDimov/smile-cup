@@ -44,6 +44,8 @@
   cursor: pointer;
   display: inline-block;
   font-weight: 700;
+  width: 100%;
+  text-align: center;
 }
 
 .special-button.small {
