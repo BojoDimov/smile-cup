@@ -2136,7 +2136,7 @@ input, select, textarea {
 		position: absolute;
 		z-index: 1;
 		top: 0;
-		left: 50%;
+		left: 48%;
 		width: 15em;
 		margin-left: -7.5em;
 	}
