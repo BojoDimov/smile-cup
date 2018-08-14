@@ -21,6 +21,7 @@ export default class Registration extends React.Component {
       });
       return;
     }
+    this.setState({ errors: {} });
     return post('/users', this.state)
       .catch(err => {
         this.setState({ errors: err });
@@ -44,12 +45,13 @@ export default class Registration extends React.Component {
             <div className="col-12">
               <input placeholder="Е-майл" type="text"
                 onChange={e => this.setState({ email: e.target.value })} />
-              <div className="error">{this.state.errors.email ? '*Задължително поле' : null}</div>
+              <div className="error">{this.state.errors.email ? '*Невалиден имейл' : null}</div>
+              <div className="error">{this.state.errors.email_uq ? '*Потребителското име е заето' : null}</div>
             </div>
             <div className="col-12">
               <input placeholder="Парола" type="password"
                 onChange={e => this.setState({ password: e.target.value })} />
-              <div className="error">{this.state.errors.password ? '*Задължително поле' : null}</div>
+              <div className="error">{this.state.errors.password ? '*Паролата трябва да бъде поне 8 символа, да поне една цифра, една малка буква и една голяма буква' : null}</div>
             </div>
             <div className="col-12">
               <input placeholder="Повтори парола" type="password"
@@ -59,19 +61,19 @@ export default class Registration extends React.Component {
             <div className="col-12">
               <input placeholder="Име" type="text"
                 onChange={e => this.setState({ name: e.target.value })} />
-              <div className="error">{this.state.errors.name ? '*Задължително поле' : null}</div>
+              <div className="error">{this.state.errors.name ? '*Полето не трябва да е празно и се допускат само имена на кирилица' : null}</div>
             </div>
             <div className="col-12">
               <input placeholder="Дата на раждане" type={this.state.inputType}
                 onFocus={() => this.setState({ inputType: 'date' })}
                 onBlur={() => this.setState({ inputType: 'text' })}
                 onChange={e => this.setState({ birthDate: e.target.value })} />
-              <div className="error">{this.state.errors.birthDate ? '*Задължително поле' : null}</div>
+              <div className="error">{this.state.errors.birthDate ? '*Невалидна дата' : null}</div>
             </div>
             <div className="col-12">
               <input placeholder="Телефонен номер" type="text"
                 onChange={e => this.setState({ telephone: e.target.value })} />
-              <div className="error">{this.state.errors.telephone ? '*Задължително поле' : null}</div>
+              <div className="error">{this.state.errors.telephone ? '*Невалиден телефонен номер' : null}</div>
             </div>
             <div className="col-12">
               <select onChange={e => this.setState({ gender: e.target.value })}>
@@ -89,9 +91,9 @@ export default class Registration extends React.Component {
         </form>
         <ul className="actions">
           <li>
-            <a className="button" onClick={() => this.register()}>
+            <div className="login-button" onClick={() => this.register()}>
               Регистрирай ме
-            </a>
+            </div>
           </li>
         </ul>
         {this.state.showMessage ?

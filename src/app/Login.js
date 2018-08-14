@@ -53,7 +53,7 @@ export default class Login extends React.Component {
         </form>
         <ul className="actions">
           <li><RedirectAction onSuccess="/news" onClick={() => this.login()}>
-            <a className="button">Вход</a>
+            <div className="login-button">Вход</div>
           </RedirectAction>
           </li>
           <li><Link to="/recovery">Забравена парола</Link></li>

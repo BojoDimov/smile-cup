@@ -66,14 +66,14 @@
 }
 
 .special-button.b {
-  color: steelblue;
-  border:1px solid steelblue;
+  color: #1FA0FF;
+  border:1px solid #1FA0FF;
 }
 
 .b:hover {
   color: white;
-  background-color: steelblue;
-  border-color: steelblue;
+  background-color: #1FA0FF;
+  border-color: #1FA0FF;
   transition: all .25s ease-in-out;
 }
 
