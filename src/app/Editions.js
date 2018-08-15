@@ -40,13 +40,13 @@ export default class Editions extends React.Component {
 
         <div>
           {hasFinished(edition) ?
-            <span className="special-button b">Преглед</span>
+            <Link to={`/editions/${edition.id}`} className="special-button b">Преглед</Link>
             : null}
           {!hasStarted(edition) ?
             <Link to={`/editions/${edition.id}`} className="special-button g">Участвай</Link>
             : null}
           {hasStarted(edition) && !hasFinished(edition) ?
-            <span className="special-button b">Разпределение</span>
+            <Link to={`/editions/${edition.id}`} className="special-button b">Разпределение</Link>
             : null}
         </div>
       </div>
