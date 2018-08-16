@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { get } from '../services/fetch';
+import { ConfirmationButton } from './Infrastructure';
 import './fast-styles.css';
 import * as UserService from '../services/user';
 import * as Enums from '../enums';
@@ -27,10 +28,15 @@ export default class Schemes extends React.Component {
     return (
       <div className="wrapper">
         <div className="container list">
+          <ConfirmationButton message="А ти жаба ли си"
+            confirm={true}
+            onChange={flag => flag ? console.log(true) : console.log(false)} >
+            Аз съм жаба
+            </ConfirmationButton>
           <h2>{this.state.edition.name}</h2>
           {this.state.schemes.map(this.getScheme.bind(this))}
         </div>
-      </div>
+      </div >
     );
   }
 
@@ -53,6 +59,9 @@ export default class Schemes extends React.Component {
   getScheme(scheme, i) {
     const button = this.getButton(scheme);
 
+    if (scheme.groupPhase && scheme.groupPhase.status === Enums.Status.PUBLISHED)
+      scheme = scheme.groupPhase
+
     return (
       <div className="button list-row" key={i} >
         <img src="../images/smile-logo.jpg" />
@@ -71,11 +80,23 @@ export default class Schemes extends React.Component {
 
         <div style={{ width: '10rem' }}>
           {button ?
+            <ConfirmationButton message={button.message}
+              confirm={button.confirm}
+              onChange={flag => flag ? button.onClick() : null} >
+              <span className={`special-button ${button.class}`}
+                title={button.title}>{button.name}</span>
+            </ConfirmationButton>
+
+            : null}
+        </div>
+
+        {/* <div style={{ width: '10rem' }}>
+          {button ?
             <span className={`special-button ${button.class}`}
               title={button.title}
               onClick={button.onClick}>{button.name}</span>
-            : null}
-        </div>
+            : null} */}
+
       </div>
     );
   }
@@ -83,28 +104,45 @@ export default class Schemes extends React.Component {
   getButton(scheme) {
     let button = null;
     if (!this.state.user)
-      return button;
+      return {
+        confirm: false,
+        message: null,
+        title: null,
+        name: 'Записване',
+        class: 'b',
+        onClick: (e) => {
+          if (e)
+            e.stopPropagation();
+          return this.props.history.push(`/login`);
+        }
+      }
 
     const age = new Date(new Date() - new Date(this.state.user.birthDate)).getUTCFullYear() - 1970;
 
-    if (scheme.status == Enums.Status.FINALIZED)
+    if (scheme.status == Enums.Status.FINALIZED || scheme.hasGroupPhase)
       return {
+        confirm: false,
+        message: null,
         title: null,
         name: 'Преглед',
         class: 'b',
         onClick: (e) => {
-          e.stopPropagation();
+          if (e)
+            e.stopPropagation();
           return this.props.history.push(`/schemes/${scheme.id}`);
         }
       }
 
     if (this.state.enrolled.find(e => e == scheme.id))
       return {
+        confirm: true,
+        message: `Сигурни ли сте че искате да се отпишете от турнир "${scheme.name}"?`,
         title: null,
         name: 'Отписване',
         class: 'default',
         onClick: (e) => {
-          e.stopPropagation();
+          if (e)
+            e.stopPropagation();
           return this.cancelEnroll(scheme)
         }
       }
@@ -113,11 +151,14 @@ export default class Schemes extends React.Component {
     if (!scheme.singleTeams
       && (scheme.mixedTeams || scheme[this.state.user.gender + 'Teams']))
       return {
+        confirm: false,
+        message: null,
         title: null,
-        name: 'Покани',
+        name: 'Записване',
         class: 'g',
         onClick: (e) => {
-          e.stopPropagation();
+          if (e)
+            e.stopPropagation();
           return this.props.history.push(`/schemes/${scheme.id}/invite`);
         }
       }
@@ -127,32 +168,41 @@ export default class Schemes extends React.Component {
       && (!scheme.ageTo || scheme.ageTo > age)) {
       if (new Date() > new Date(scheme.registrationEnd))
         return {
+          confirm: true,
+          message: `Сигурни ли сте че искате да се запишете за турнир "${scheme.name}"?`,
           title: 'регистрацията е приключила, ще бъдете записан в опашка',
           name: 'Записване',
           class: 'b',
           onClick: (e) => {
-            e.stopPropagation();
+            if (e)
+              e.stopPropagation();
             return this.enroll(scheme)
           }
         }
       else
         return {
+          confirm: true,
+          message: `Сигурни ли сте че искате да се запишете за турнир "${scheme.name}"?`,
           title: null,
           name: 'Записване',
           class: 'g',
           onClick: (e) => {
-            e.stopPropagation();
+            if (e)
+              e.stopPropagation();
             return this.enroll(scheme)
           }
         }
     }
     else
       return {
+        confirm: false,
+        message: null,
         title: 'не отговаряте на изискванията за тази схема',
         name: 'Записване',
         class: 'disabled',
         onClick: (e) => {
-          e.stopPropagation()
+          if (e)
+            e.stopPropagation()
         }
       }
   }
@@ -188,6 +238,13 @@ export class SchemeInfo extends React.Component {
             : null}
         </div>
       );
+    else if (scheme.groupPhase)
+      return (
+        <div style={{ padding: '1rem', width: '14rem' }}>
+          {/* <div>Участват първите двама от група</div>
+          <Link to={`/schemes/${scheme.groupPhaseId}`} style={{ border: 'none' }}>{scheme.groupPhase.name}</Link> */}
+        </div>
+      );
     else
       return (
         <div style={{ padding: '1rem', width: '14rem' }}>
@@ -200,6 +257,7 @@ export class SchemeInfo extends React.Component {
 
 function getLimitations(scheme) {
   const limitations = [];
+  const ages = [];
   if (scheme.schemeType == Enums.SchemeType.ELIMINATION)
     limitations.push('елиминации ' + getSize(scheme));
   if (scheme.schemeType == Enums.SchemeType.GROUP)
@@ -210,8 +268,13 @@ function getLimitations(scheme) {
     limitations.push('жени');
   if (scheme.mixedTeams)
     limitations.push('микс');
+
   if (scheme.ageFrom || scheme.ageTo)
-    limitations.push(scheme.ageFrom + ' - ' + scheme.ageTo);
+    limitations
+      .push([
+        scheme.ageFrom ? scheme.ageFrom : "",
+        scheme.ageTo ? scheme.ageTo : "",
+      ].join(" - "));
 
   return limitations.join(' | ');
 }

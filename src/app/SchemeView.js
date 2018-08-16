@@ -71,8 +71,9 @@ export default class SchemeView extends React.Component {
             <div className="scheme-list-header" onClick={() => this.setState({ showDraw: !this.state.showDraw })}>
               Схема
               {this.state.showDraw && this.state.draw.isDrawn ?
-                <div style={{ fontSize: '.5em', marginTop: '1rem', textDecoration: 'underline' }}>
+                <div style={{ fontSize: '.5em', marginTop: '1rem' }}>
                   <Link to={`/bracket/${this.state.scheme.id}`}>преглед </Link>
+                  {this.state.scheme.groupPhase ? <Link to={`/bracket/${this.state.scheme.groupPhaseId}`}>| групова фаза</Link> : null}
                 </div> : null}
             </div>
             {/* {this.getList(this.state.enrollments, 3)} */}

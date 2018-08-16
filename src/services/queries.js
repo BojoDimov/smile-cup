@@ -33,8 +33,10 @@ const Queries = {
         ])
         .then(([edition, { enrolled, queue }]) => {
           return {
-            schemes: edition.schemes.filter(s => s.status === Enums.Status.PUBLISHED
-              || s.status === Enums.Status.FINALIZED),
+            schemes: edition.schemes.filter(s =>
+              (s.status === Enums.Status.PUBLISHED
+                || s.status === Enums.Status.FINALIZED)
+              && s.schemeType === Enums.SchemeType.ELIMINATION),
             edition: edition,
             enrolled: enrolled.concat(queue)
           }

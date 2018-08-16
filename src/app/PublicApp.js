@@ -20,6 +20,7 @@ import Faq from './Faq';
 import Advertisement from './Advertisement';
 import Gallery from './Gallery';
 import Recovery from './Recovery';
+import { ModalHolder } from './Infrastructure';
 import '../css/styles.css';
 
 
@@ -27,6 +28,7 @@ export class PublicApp extends React.Component {
   render() {
     return (
       <div id="page-wrapper">
+        <ModalHolder />
         <Header />
         <Switch>
           <Route exact path="/">
