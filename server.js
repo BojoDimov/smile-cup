@@ -4,7 +4,7 @@ const cors = require('cors');
 
 
 console.log(process.argv);
-app.listen(8081, () => console.log('SmileCup static files on port 80.'));
+app.listen(8081, () => console.log('SmileCup static files on port 8081.'));
 app.use(cors());
 
 app.use('/', express.static('build'));

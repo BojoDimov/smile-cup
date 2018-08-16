@@ -52,10 +52,9 @@ export default class Schemes extends React.Component {
   }
 
   getScheme(scheme, i) {
-    const button = this.getButton(scheme);
-
     if (scheme.groupPhase && scheme.groupPhase.status === Enums.Status.PUBLISHED)
       scheme = scheme.groupPhase
+    const button = this.getButton(scheme);
 
     return (
       <div className="button list-row" key={i} >
