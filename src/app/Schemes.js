@@ -28,11 +28,6 @@ export default class Schemes extends React.Component {
     return (
       <div className="wrapper">
         <div className="container list">
-          <ConfirmationButton message="А ти жаба ли си"
-            confirm={true}
-            onChange={flag => flag ? console.log(true) : console.log(false)} >
-            Аз съм жаба
-            </ConfirmationButton>
           <h2>{this.state.edition.name}</h2>
           {this.state.schemes.map(this.getScheme.bind(this))}
         </div>
