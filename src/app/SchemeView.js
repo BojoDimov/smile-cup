@@ -30,6 +30,10 @@ export default class SchemeView extends React.Component {
     this.getData();
   }
 
+  componentDidUpdate() {
+    console.log(this.state);
+  }
+
   getData() {
     Queries.Schemes
       .getById(this.props.match.params['id'])
@@ -47,8 +51,10 @@ export default class SchemeView extends React.Component {
   }
 
   isEnrolled() {
-    return this.state.enrollments.find(e => e.id == this.state.team.id)
-      || this.state.queue.find(e => e.id == this.state.team.id);
+    return this.state.enrollments
+      .find(e => e.user1Id == this.state.user.id || e.user2Id == this.state.user.id)
+      || this.state.queue
+        .find(e => e.user1Id == this.state.user.id || e.user2Id == this.state.user.id);
   }
 
   render() {

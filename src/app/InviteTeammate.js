@@ -115,7 +115,7 @@ export default class InviteTeammate extends React.Component {
     if (user.canAccept)
       return {
         confirm: true,
-        message: `Моля потвърдете че ще записани в отбор с ${user.name}`,
+        message: `Моля потвърдете че искате да сте в отбор с ${user.name}`,
         title: `Ще бъдете записани в отбор с ${user.name}`,
         name: 'Приемане',
         class: 'g',
