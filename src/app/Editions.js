@@ -29,16 +29,12 @@ export default class Editions extends React.Component {
     return (
       <div className="button list-row" key={i}>
         <img src="images/smile-logo.jpg" />
-        <div>
+        <div style={{ flexGrow: 1 }}>
           <div className="list-row-header">{edition.name}</div>
           <div style={{ fontWeight: 700 }}>{getLocaleDate(edition.startDate)} - {getLocaleDate(edition.endDate)}</div>
         </div>
 
-        <div style={{ flexGrow: 1, textAlign: 'center' }}>
-          SGL 48 | DBL 16
-        </div>
-
-        <div>
+        <div style={{ width: '10rem' }}>
           {hasFinished(edition) ?
             <Link to={`/editions/${edition.id}`} className="special-button b">Преглед</Link>
             : null}

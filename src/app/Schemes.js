@@ -80,7 +80,6 @@ export default class Schemes extends React.Component {
               <span className={`special-button ${button.class}`}
                 title={button.title}>{button.name}</span>
             </ConfirmationButton>
-
             : null}
         </div>
 
@@ -124,6 +123,19 @@ export default class Schemes extends React.Component {
           if (e)
             e.stopPropagation();
           return this.props.history.push(`/schemes/${scheme.id}`);
+        }
+      }
+
+    if (new Date(scheme.registrationStart) > new Date())
+      return {
+        confirm: false,
+        message: null,
+        title: 'Записването още не е започнало',
+        name: 'Записване',
+        class: 'disabled',
+        onClick: (e) => {
+          if (e)
+            e.stopPropagation()
         }
       }
 

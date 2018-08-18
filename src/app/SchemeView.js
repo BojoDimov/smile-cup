@@ -2,12 +2,17 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Queries from '../services/queries';
 import { BracketPreview } from './bracket/BracketPreview';
+import { ConfirmationButton } from './Infrastructure';
+import { get, post } from '../services/fetch';
+import * as Enums from '../enums';
+import * as UserService from '../services/user';
 import './scheme-view-styles.css';
 
 export default class SchemeView extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      user: UserService.getUser(),
       enrollments: [],
       queue: [],
       draw: {},
@@ -22,16 +27,54 @@ export default class SchemeView extends React.Component {
   }
 
   componentDidMount() {
+    this.getData();
+  }
+
+  getData() {
     Queries.Schemes
       .getById(this.props.match.params['id'])
       .then(res => this.setState(res));
   }
 
+  enroll(scheme) {
+    get(`/schemes/${scheme.id}/enroll?userId=${this.state.user.id}`)
+      .then(() => this.getData());
+  }
+
+  cancelEnroll(scheme) {
+    get(`/schemes/${scheme.id}/cancelEnroll?userId=${this.state.user.id}`)
+      .then(() => this.getData());
+  }
+
+  isEnrolled() {
+    return this.state.enrollments.find(e => e.id == this.state.team.id)
+      || this.state.queue.find(e => e.id == this.state.team.id);
+  }
+
   render() {
+    const button = this.getButton(this.state.scheme);
+
     return (
       <div className="wrapper">
         <div className="container">
-          <h2 style={{ textAlign: 'center' }}>{this.state.scheme.TournamentEdition.name} - {this.state.scheme.name}</h2>
+          {button ?
+            <div style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap' }}>
+              <h2 style={{ flex: 4, flexBasis: '14rem' }}>{this.state.scheme.TournamentEdition.name} - {this.state.scheme.name}</h2>
+              <div style={{ display: 'flex', justifyContent: 'space-between', flex: 1 }}>
+                <ConfirmationButton message={button.message}
+                  confirm={button.confirm}
+                  onChange={flag => flag ? button.onClick() : null} >
+                  <span className={`special-button small ${button.class}`}
+                    title={button.title}>{button.name}</span>
+                </ConfirmationButton>
+                {this.isEnrolled() ?
+                  <div>
+                    <span className="special-button small disabled" title="Плащането през сайта ще бъде отворено скоро." >Плащане</span>
+                  </div> : null}
+              </div>
+            </div>
+            : <h2 style={{ textAlign: 'center' }}>{this.state.scheme.TournamentEdition.name} - {this.state.scheme.name}</h2>
+          }
 
           <div className="scheme-list">
             <div className="scheme-list-header" onClick={() => this.setState({ showEnrollments: !this.state.showEnrollments })}>
@@ -87,6 +130,113 @@ export default class SchemeView extends React.Component {
         </div>
       </div>
     );
+  }
+
+  getButton(scheme) {
+    if (!this.state.user)
+      return {
+        confirm: false,
+        message: null,
+        title: null,
+        name: 'Записване',
+        class: 'b',
+        onClick: (e) => {
+          if (e)
+            e.stopPropagation();
+          return this.props.history.push(`/login`);
+        }
+      }
+
+    const age = new Date(new Date() - new Date(this.state.user.birthDate)).getUTCFullYear() - 1970;
+
+    if (scheme.status == Enums.Status.FINALIZED || scheme.hasGroupPhase)
+      return null;
+
+    if (new Date(scheme.registrationStart) > new Date())
+      return {
+        confirm: false,
+        message: null,
+        title: 'Записването още не е започнало',
+        name: 'Записване',
+        class: 'disabled',
+        onClick: (e) => {
+          if (e)
+            e.stopPropagation()
+        }
+      }
+
+    if (this.isEnrolled())
+      return {
+        confirm: true,
+        message: `Сигурни ли сте че искате да се отпишете от турнир "${scheme.name}"?`,
+        title: null,
+        name: 'Отписване',
+        class: 'default',
+        onClick: (e) => {
+          if (e)
+            e.stopPropagation();
+          return this.cancelEnroll(scheme)
+        }
+      }
+
+    //двойки
+    if (!scheme.singleTeams
+      && (scheme.mixedTeams || scheme[this.state.user.gender + 'Teams']))
+      return {
+        confirm: false,
+        message: null,
+        title: null,
+        name: 'Записване',
+        class: 'g',
+        onClick: (e) => {
+          if (e)
+            e.stopPropagation();
+          return this.props.history.push(`/schemes/${scheme.id}/invite`);
+        }
+      }
+
+    if (scheme[this.state.user.gender + 'Teams']
+      && (!scheme.ageFrom || scheme.ageFrom < age)
+      && (!scheme.ageTo || scheme.ageTo > age)) {
+      if (new Date() > new Date(scheme.registrationEnd))
+        return {
+          confirm: true,
+          message: `Сигурни ли сте че искате да се запишете за турнир "${scheme.name}"?`,
+          title: 'регистрацията е приключила, ще бъдете записан в опашка',
+          name: 'Записване',
+          class: 'b',
+          onClick: (e) => {
+            if (e)
+              e.stopPropagation();
+            return this.enroll(scheme)
+          }
+        }
+      else
+        return {
+          confirm: true,
+          message: `Сигурни ли сте че искате да се запишете за турнир "${scheme.name}"?`,
+          title: null,
+          name: 'Записване',
+          class: 'g',
+          onClick: (e) => {
+            if (e)
+              e.stopPropagation();
+            return this.enroll(scheme)
+          }
+        }
+    }
+    else
+      return {
+        confirm: false,
+        message: null,
+        title: 'не отговаряте на изискванията за тази схема',
+        name: 'Записване',
+        class: 'disabled',
+        onClick: (e) => {
+          if (e)
+            e.stopPropagation()
+        }
+      }
   }
 
   getList(collection, itemsOnRow) {

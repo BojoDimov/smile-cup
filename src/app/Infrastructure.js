@@ -16,8 +16,7 @@ export class ConfirmationButton extends React.Component {
 
   initComponent() {
     return (
-      <div style={{ marginTop: '5rem', minHeight: '10rem', display: 'flex', flexDirection: 'column', justifyContent: 'space-around', textAlign: 'center' }}
-        className="modal"
+      <div className="modal"
         onClick={(e) => e.stopPropagation()}>
         <div>{this.props.message}</div>
         <ul className="actions">
