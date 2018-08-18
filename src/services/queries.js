@@ -14,13 +14,17 @@ const Queries = {
         ])
         .then(([published, finalized]) => published.concat(finalized))
         .then(editions => editions.map(e => {
-          e.schemes = e.schemes.filter(s => s.status === Enums.Status.PUBLISHED
-            || s.status === Enums.Status.FINALIZED);
+          e.schemes = e.schemes
+            .filter(s => (s.status === Enums.Status.PUBLISHED
+              || s.status === Enums.Status.FINALIZED)
+              && s.schemeType === Enums.SchemeType.ELIMINATION)
+            .map(scheme => {
+              if (scheme.groupPhase && scheme.groupPhase.status === Enums.Status.PUBLISHED)
+                return scheme.groupPhase;
+              else return scheme;
+            });
           return e;
         }));
-    },
-    getById: () => {
-
     }
   },
   Schemes: {
@@ -33,10 +37,16 @@ const Queries = {
         ])
         .then(([edition, { enrolled, queue }]) => {
           return {
-            schemes: edition.schemes.filter(s =>
-              (s.status === Enums.Status.PUBLISHED
-                || s.status === Enums.Status.FINALIZED)
-              && s.schemeType === Enums.SchemeType.ELIMINATION),
+            schemes: edition.schemes
+              .filter(s =>
+                (s.status === Enums.Status.PUBLISHED
+                  || s.status === Enums.Status.FINALIZED)
+                && s.schemeType === Enums.SchemeType.ELIMINATION)
+              .map(scheme => {
+                if (scheme.groupPhase && scheme.groupPhase.status === Enums.Status.PUBLISHED)
+                  return scheme.groupPhase;
+                else return scheme;
+              }),
             edition: edition,
             enrolled: enrolled.concat(queue)
           }
