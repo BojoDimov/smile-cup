@@ -52,10 +52,9 @@ export default class Schemes extends React.Component {
   }
 
   getScheme(scheme, i) {
+    // if (scheme.groupPhase && scheme.groupPhase.status === Enums.Status.PUBLISHED)
+    //   scheme = scheme.groupPhase
     const button = this.getButton(scheme);
-
-    if (scheme.groupPhase && scheme.groupPhase.status === Enums.Status.PUBLISHED)
-      scheme = scheme.groupPhase
 
     return (
       <div className="button list-row" key={i} >
@@ -81,7 +80,6 @@ export default class Schemes extends React.Component {
               <span className={`special-button ${button.class}`}
                 title={button.title}>{button.name}</span>
             </ConfirmationButton>
-
             : null}
         </div>
 
@@ -125,6 +123,19 @@ export default class Schemes extends React.Component {
           if (e)
             e.stopPropagation();
           return this.props.history.push(`/schemes/${scheme.id}`);
+        }
+      }
+
+    if (new Date(scheme.registrationStart) > new Date())
+      return {
+        confirm: false,
+        message: null,
+        title: 'Записването още не е започнало',
+        name: 'Записване',
+        class: 'disabled',
+        onClick: (e) => {
+          if (e)
+            e.stopPropagation()
         }
       }
 

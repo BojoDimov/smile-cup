@@ -57,6 +57,7 @@ export class PublicApp extends React.Component {
           </Route>
         </Switch>
         <Switch>
+          <Route path="/*/*/*" render={(params) => <Footer {...params} level={2} />} />
           <Route path="/*/*" render={(params) => <Footer {...params} level={1} />} />
           <Route path="/*" render={(params) => <Footer {...params} level={0} />} />
         </Switch>

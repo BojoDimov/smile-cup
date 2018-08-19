@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { post, get } from '../services/fetch';
+import { ConfirmationButton } from './Infrastructure';
 import * as UserService from '../services/user';
 
 
@@ -95,11 +96,15 @@ export default class InviteTeammate extends React.Component {
         <div style={{ flexGrow: 1, flexBasis: '20rem' }}>
           <Link to={`/users/${user.id}`}>{user.name}</Link>
         </div>
+
         <div style={{ width: '12rem' }}>
           {button ?
-            <span className={`special-button small ${button.class}`}
-              title={button.title}
-              onClick={button.onClick}>{button.name}</span>
+            <ConfirmationButton message={button.message}
+              confirm={button.confirm}
+              onChange={flag => flag ? button.onClick() : null} >
+              <span className={`special-button small ${button.class}`}
+                title={button.title}>{button.name}</span>
+            </ConfirmationButton>
             : null}
         </div>
       </div>
@@ -109,33 +114,42 @@ export default class InviteTeammate extends React.Component {
   getButton(user) {
     if (user.canAccept)
       return {
+        confirm: true,
+        message: `Моля потвърдете че искате да сте в отбор с ${user.name}`,
         title: `Ще бъдете записани в отбор с ${user.name}`,
         name: 'Приемане',
         class: 'g',
         onClick: (e) => {
-          e.stopPropagation();
+          if (e)
+            e.stopPropagation();
           return this.accept(user)
         }
       }
 
     if (user.canInvite)
       return {
+        confirm: true,
+        message: `Моля потвърдете изпращането на покана до ${user.name}. Ще бъдете уведомени с имейл когато ${user.name} приеме поканата Ви.`,
         title: `Ще бъдете уведомени когато ${user.name} приеме поканата`,
         name: 'Покана',
         class: 'g',
         onClick: (e) => {
-          e.stopPropagation();
+          if (e)
+            e.stopPropagation();
           return this.invite(user)
         }
       }
 
     if (user.canRevoke)
       return {
+        confirm: true,
+        message: `Моля потвърдете отказа на поканата към ${user.name}`,
         title: null,
         name: 'Отказ на поканата',
         class: 'b',
         onClick: (e) => {
-          e.stopPropagation();
+          if (e)
+            e.stopPropagation();
           return this.revoke(user)
         }
       }
