@@ -8,6 +8,23 @@ import * as Enums from '../enums';
 import * as UserService from '../services/user';
 import './scheme-view-styles.css';
 
+export class PaymentButton extends React.Component {
+  render() {
+    return (
+      <form method="POST" action="https://www.epay.bg/v3main/paylogin">
+        <input type="submit" className="special-button small" value=" Плащане" />
+        <input type="hidden" name="MIN" value="0553292350" />
+        <input type="hidden" name="TOTAL" value={this.props.money} />
+        <input type="hidden" name="DESCR" value={this.props.description} />
+        <input type="hidden" name="URL_OK" value="https://www.epay.bg/v3main/front?p=thanks" />
+        <input type="hidden" name="URL_CANCEL" value="https://www.epay.bg/v3main/front?p=cancel" />
+        <input type="hidden" name="ENCODING" value="utf8" />
+        <input type="hidden" name="CHECKSUM" value="568676817e377e9f8710725fdaea0e6b236a2f0f" />
+      </form>
+    );
+  }
+}
+
 export default class SchemeView extends React.Component {
   constructor(props) {
     super(props);
@@ -63,6 +80,7 @@ export default class SchemeView extends React.Component {
     return (
       <div className="wrapper">
         <div className="container">
+
           {button ?
             <div style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap' }}>
               <h2 style={{ flex: 4, flexBasis: '14rem' }}>{this.state.scheme.TournamentEdition.name} - {this.state.scheme.name}</h2>
@@ -74,9 +92,9 @@ export default class SchemeView extends React.Component {
                     title={button.title}>{button.name}</span>
                 </ConfirmationButton>
                 {this.isEnrolled() ?
-                  <div>
-                    <span className="special-button small disabled" title="Плащането през сайта ще бъде отворено скоро." >Плащане</span>
-                  </div> : null}
+                  <PaymentButton description={`Такса участие за турнир: ${this.state.scheme.TournamentEdition.name} - ${this.state.scheme.name}`}
+                    money={this.state.scheme.singleTeams ? 20 : 30} />
+                  : null}
               </div>
             </div>
             : <h2 style={{ textAlign: 'center' }}>{this.state.scheme.TournamentEdition.name} - {this.state.scheme.name}</h2>
