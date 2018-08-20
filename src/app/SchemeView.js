@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Queries from '../services/queries';
 import { BracketPreview } from './bracket/BracketPreview';
-import { ConfirmationButton } from './Infrastructure';
+import { ConfirmationButton, createOpenModalEvent, AccommodationMessage } from './Infrastructure';
 import { get, post } from '../services/fetch';
 import * as Enums from '../enums';
 import * as UserService from '../services/user';
@@ -42,7 +42,10 @@ export default class SchemeView extends React.Component {
 
   enroll(scheme) {
     get(`/schemes/${scheme.id}/enroll?userId=${this.state.user.id}`)
-      .then(() => this.getData());
+      .then(() => {
+        this.getData();
+        createOpenModalEvent(<AccommodationMessage />, () => null);
+      });
   }
 
   cancelEnroll(scheme) {

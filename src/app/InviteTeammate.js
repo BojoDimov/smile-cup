@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { post, get } from '../services/fetch';
-import { ConfirmationButton } from './Infrastructure';
+import { ConfirmationButton, createOpenModalEvent, AccommodationMessage } from './Infrastructure';
 import * as UserService from '../services/user';
 
 
@@ -40,7 +40,12 @@ export default class InviteTeammate extends React.Component {
 
   accept(user) {
     get(`/invitations/accept?userId=${user.id}&schemeId=${this.props.match.params.id}`)
-      .then(() => this.props.history.push(`/schemes/${this.props.match.params.id}`));
+      .then(() => {
+        this.props.history.push(`/schemes/${this.props.match.params.id}`);
+        setTimeout(() => {
+          createOpenModalEvent(<AccommodationMessage />, () => null);
+        }, 2000);
+      });
   }
 
   revoke(user) {

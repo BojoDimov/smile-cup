@@ -2,6 +2,31 @@ import React from 'react';
 import { Link, Route } from 'react-router-dom';
 import { get } from '../services/fetch';
 
+export const AccommodationMessage = () => {
+  return (
+    <ModalMessage
+      message={
+        <React.Fragment>
+          <h3>За резервации и настаняване: Ивайло Коев</h3>
+          <ul className="menu" style={{ textAlign: 'center', marginTop: '1.3em' }}>
+            <li><a href="mailto:tournaments@smilevent.net">tournaments@smilevent.net</a></li>
+            <li>+359 883 326 235</li>
+            <li><Link to="/accommodation">допълнителна информация</Link></li>
+          </ul>
+        </React.Fragment>} />);
+}
+
+export const ModalMessage = ({ message, close }) => {
+  return (
+    <div className="modal">
+      <div>{message}</div>
+      <ul className="actions">
+        <li className="login-button" onClick={() => createCloseModalEvent()}>Добре</li>
+      </ul>
+    </div>
+  );
+}
+
 export class ConfirmationButton extends React.Component {
   constructor(props) {
     super(props);

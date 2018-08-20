@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { get } from '../services/fetch';
-import { ConfirmationButton } from './Infrastructure';
+import { ConfirmationButton, AccommodationMessage, createOpenModalEvent } from './Infrastructure';
 import './fast-styles.css';
 import * as UserService from '../services/user';
 import * as Enums from '../enums';
@@ -37,7 +37,10 @@ export default class Schemes extends React.Component {
 
   enroll(scheme) {
     get(`/schemes/${scheme.id}/enroll?userId=${this.state.user.id}`)
-      .then(() => this.setState({ enrolled: this.state.enrolled.concat([scheme.id]) }));
+      .then(() => {
+        this.setState({ enrolled: this.state.enrolled.concat([scheme.id]) });
+        createOpenModalEvent(<AccommodationMessage />, () => null);
+      });
   }
 
   cancelEnroll(scheme) {
