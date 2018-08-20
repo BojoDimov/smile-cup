@@ -105,6 +105,14 @@ export default class Accommodation extends React.Component {
                 <br />
                 - Пул бар: 10:00 - 23:00 ч.
               </p>
+
+              <h3>За възникнали въпроси</h3>
+              <p>Ивайло Коев
+                <br />
+                <a href="mailto:tournaments@smilevent.net">tournaments@smilevent.net</a>
+                <br />
+                +359 883 326 235
+              </p>
             </div>
           </section>
 

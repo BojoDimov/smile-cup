@@ -35,7 +35,7 @@ export default class Footer extends React.Component {
             <li>&copy; SmileEventS. All rights reserved.</li>
           </ul>
           <ul className="menu" style={{ textAlign: 'center' }}>
-
+            <img className="fair-play" src={this.getUrl("images/fairplay.jpg")} />
           </ul>
         </div>
       </div>

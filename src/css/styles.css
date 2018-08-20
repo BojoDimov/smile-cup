@@ -255,3 +255,13 @@ table.elimination-table .team-label {
 table.elimination-table .match-table {
   width: 16rem;
 }
+
+.fair-play {
+  width: 30rem !important;
+}
+
+@media screen and (max-width: 500px) {
+  .fair-play {
+    width: 15rem !important;
+  }
+}

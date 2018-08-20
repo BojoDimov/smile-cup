@@ -240,3 +240,11 @@ table.elimination-table {
     width: 16rem;
   }
 }
+
+.fair-play {
+  width: 30rem !important;
+
+  @media screen and (max-width: 500px) {
+    width: 15rem !important;
+  }
+}
