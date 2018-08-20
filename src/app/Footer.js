@@ -18,7 +18,7 @@ export default class Footer extends React.Component {
             <a href="https://www.youtube.com/watch?v=co4YpHTqmfQ" title="https://www.youtube.com/watch?v=co4YpHTqmfQ">
               <img src={this.getUrl("images/youtube.svg")} />
             </a>
-            <a href="https://www.instagram.com/?hl=en" title="https://www.instagram.com/?hl=en">
+            <a href="https://www.instagram.com/smileeventsbg/" title="https://www.instagram.com/?hl=en">
               <img src={this.getUrl("images/instagram.svg")} />
             </a>
             <a href="https://web.facebook.com/pg/smileeventsbg/" title="https://web.facebook.com/pg/smileeventsbg/">
