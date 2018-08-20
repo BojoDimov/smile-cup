@@ -17,7 +17,7 @@ import User from './User';
 import InviteTeammate from './InviteTeammate';
 import Contacts from './Contacts';
 import Faq from './Faq';
-import Advertisement from './Advertisement';
+import Accommodation from './Accommodation';
 import Gallery from './Gallery';
 import Recovery from './Recovery';
 import { ModalHolder } from './Infrastructure';
@@ -48,7 +48,7 @@ export class PublicApp extends React.Component {
           <Route path="/login" component={Auth} />
           <Route path="/logout" component={LogoutEndpoint} />
           <Route path="/contacts" component={Contacts} />
-          <Route path="/advertisement" component={Advertisement} />
+          <Route path="/accommodation" component={Accommodation} />
           <Route path="/faq" component={Faq} />
           <Route path="/gallery" component={Gallery} />
           <Route path="/recovery" render={(params) => <Recovery {...params} />} />
