@@ -57,7 +57,7 @@ export default class Home extends React.Component {
 
               <div style={{ marginLeft: '2em' }}>
                 <img style={{ width: '4em' }} src="images/hand-shake.svg" />
-                <div style={{ color: 'white', fontWeight: '700' }}>20</div>
+                <div style={{ color: 'white', fontWeight: '700' }}>5</div>
                 <div style={{ color: 'white', fontWeight: '700' }}>спонсора</div>
               </div>
             </div>
