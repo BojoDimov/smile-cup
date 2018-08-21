@@ -15,7 +15,7 @@ export default class Footer extends React.Component {
         <div id="footer" className="container">
           <header className="major" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <a href="#" title="+359 883 326 235"><img src={this.getUrl("./images/phone-call.svg")} /></a>
-            <a href="https://www.youtube.com/watch?v=co4YpHTqmfQ" title="https://www.youtube.com/watch?v=co4YpHTqmfQ">
+            <a href="#">
               <img src={this.getUrl("images/youtube.svg")} />
             </a>
             <a href="https://www.instagram.com/smileeventsbg/" title="https://www.instagram.com/?hl=en">
@@ -29,9 +29,9 @@ export default class Footer extends React.Component {
             </a>
           </header>
           <ul className="menu" style={{ textAlign: 'center' }}>
-            <li><Link to="/contacts">За нас</Link></li>
-            <li><Link to="/accommodation">Настаняване</Link></li>
-            <li><Link to="/faq">Регламент на турнирите</Link></li>
+            <li><a href="/contacts">За нас</a></li>
+            <li><a href="/accommodation">Настаняване</a></li>
+            <li><a href="/faq">Регламент на турнирите</a></li>
             <li>&copy; SmileEventS. All rights reserved.</li>
           </ul>
           <ul className="menu" style={{ textAlign: 'center' }}>

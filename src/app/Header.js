@@ -61,8 +61,8 @@ export default class Header extends React.Component {
               </li>
               <li ><Link to="/ranking">Ранглиста</Link></li>
               <li className="break"><Link to="/partners">Партньори</Link></li>
-              {/* <li><Link to="/gallery">Галерия</Link></li> */}
-              <li><a href="https://drive.google.com/drive/folders/1HIvDS63jlJJSmTJMUyCcQY5QCL01lElh?usp=drive_open">Галерия</a></li>
+              <li><Link to="/gallery">Галерия</Link></li>
+              {/* <li><a href="https://drive.google.com/drive/folders/1HIvDS63jlJJSmTJMUyCcQY5QCL01lElh?usp=drive_open">Галерия</a></li> */}
               <li>
                 {this.state.user ? null :
                   <Link to="/login">Вход | Регистрация</Link>

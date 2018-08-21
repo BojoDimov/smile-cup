@@ -50,10 +50,11 @@ export default class SchemeView extends React.Component {
   }
 
   isEnrolled() {
-    return this.state.enrollments
-      .find(e => e.user1Id == this.state.user.id || e.user2Id == this.state.user.id)
-      || this.state.queue
-        .find(e => e.user1Id == this.state.user.id || e.user2Id == this.state.user.id);
+    if (this.state.user)
+      return this.state.user && (this.state.enrollments
+        .find(e => e.user1Id == this.state.user.id || e.user2Id == this.state.user.id)
+        || this.state.queue
+          .find(e => e.user1Id == this.state.user.id || e.user2Id == this.state.user.id));
   }
 
   render() {
@@ -88,7 +89,7 @@ export default class SchemeView extends React.Component {
             {/* {this.getList(this.state.enrollments, 3)} */}
             {this.state.showEnrollments ?
               this.state.enrollments.map((e, i) =>
-                <div>
+                <div key={i}>
                   <Link to={`/users/${e.user1Id}`} key={i}>{i + 1}. {e.user1Name}</Link>
                   {e.user2Id ? <Link to={`/users/${e.user2Id}`} key={i}> & {e.user2Name}</Link> : null}
                 </div>)
