@@ -16,6 +16,10 @@ export const AccommodationMessage = () => {
         </React.Fragment>} />);
 }
 
+export const UserActivationMessage = () => {
+  return <ModalMessage message={<h3>Вашият акаунт беше успешно активиран!</h3>} />;
+}
+
 export const ModalMessage = ({ message, close }) => {
   return (
     <div className="modal">

@@ -107,7 +107,7 @@ export default class Recovery extends React.Component {
                   Моля въведете Вашият имейл. Ще ви бъде изпратено съобщение с инструкции как да възстановите паролата си
                 </div>
                 <div className="col-12">
-                  <input placeholder="Е-майл" type="text"
+                  <input placeholder="Email" type="text"
                     onChange={e => this.setState({ email: e.target.value })} />
                   <div className="error">{this.state.errors.email ? '*Задължително поле' : null}</div>
                 </div>

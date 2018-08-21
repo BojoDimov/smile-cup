@@ -20,6 +20,7 @@ import Faq from './Faq';
 import Accommodation from './Accommodation';
 import Gallery from './Gallery';
 import Recovery from './Recovery';
+import Activation from './Activation';
 import { ModalHolder } from './Infrastructure';
 import '../css/styles.css';
 
@@ -52,6 +53,7 @@ export class PublicApp extends React.Component {
           <Route path="/faq" component={Faq} />
           <Route path="/gallery" component={Gallery} />
           <Route path="/recovery" render={(params) => <Recovery {...params} />} />
+          <Route path="/activation" render={(params) => <Activation {...params} />} />
           <Route>
             <Redirect to="/home" />
           </Route>

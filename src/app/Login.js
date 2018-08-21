@@ -37,7 +37,7 @@ export default class Login extends React.Component {
         <form>
           <div className="row gtr-50">
             <div className="col-12">
-              <input name="email" placeholder="Е-майл" type="text" onChange={e => this.setState({ email: e.target.value })} />
+              <input name="email" placeholder="Email" type="text" onChange={e => this.setState({ email: e.target.value })} />
             </div>
             <div className="col-12">
               <input name="password"

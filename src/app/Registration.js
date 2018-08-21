@@ -43,7 +43,7 @@ export default class Registration extends React.Component {
         <form>
           <div className="row gtr-50">
             <div className="col-12">
-              <input placeholder="Е-майл" type="text"
+              <input placeholder="Email" type="text"
                 onChange={e => this.setState({ email: e.target.value })} />
               <div className="error">{this.state.errors.email ? '*Невалиден имейл' : null}</div>
               <div className="error">{this.state.errors.email_uq ? '*Потребителското име е заето' : null}</div>
@@ -98,7 +98,7 @@ export default class Registration extends React.Component {
         </ul>
         {this.state.showMessage ?
           <div style={{ color: '#84DC00', fontWeight: '700' }}>
-            Вие се регистрирахте успешно!
+            Регистрацията премина успешно. Моля активирайте своя акаунт чрез линка изпратен на Вашият Email.
         </div> : null}
       </section>
     );
