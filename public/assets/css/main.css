@@ -2136,7 +2136,7 @@ input, select, textarea {
 		position: absolute;
 		z-index: 1;
 		top: 0;
-		left: 48%;
+		left: 50%;
 		width: 15em;
 		margin-left: -7.5em;
 	}
@@ -2171,7 +2171,8 @@ input, select, textarea {
 	}
 
 		#nav > ul {
-			margin: 0;
+      margin: 0;
+      padding-left: 5em;
 		}
 
 			#nav > ul > li {
