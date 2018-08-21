@@ -30,10 +30,6 @@ export default class SchemeView extends React.Component {
     this.getData();
   }
 
-  componentDidUpdate() {
-    console.log(this.state);
-  }
-
   getData() {
     Queries.Schemes
       .getById(this.props.match.params['id'])

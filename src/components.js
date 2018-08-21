@@ -15,7 +15,6 @@ export class RedirectAction extends React.Component {
   }
 
   click(history) {
-    console.log('clicked on redirect action', history)
     this.props.onClick()
       .then(() => window.location = this.props.onSuccess)
       .catch(() => { });

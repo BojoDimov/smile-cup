@@ -2,8 +2,6 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 
-
-console.log(process.argv);
 app.listen(80, () => console.log('SmileCup static files on port 80.'));
 app.use(cors());
 
