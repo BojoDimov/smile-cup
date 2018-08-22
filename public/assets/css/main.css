@@ -2177,7 +2177,6 @@ input, select, textarea {
 
 			#nav > ul > li {
 				display: inline-block;
-				margin-left: 1em;
 			}
 
 				#nav > ul > li > ul {
@@ -2412,6 +2411,26 @@ input, select, textarea {
 
 			span.extra {
 				display: none;
+      }
+      
+      /* Header */
+      #nav {
+				position: relative;
+				margin: 2em 0 0 0;
+				line-height: 2.25em;
+				height: 2.25em;
+			}
+
+				#nav > ul > li {
+					margin-left: 0;
+				}
+
+					#nav > ul > li.break {
+						margin-left: 0;
+					}
+
+			.dropotron.level-0 {
+				margin-top: 1.1em;
 			}
 
 		/* Wrappers */
@@ -2482,25 +2501,6 @@ input, select, textarea {
 			}
 
 		/* Header */
-
-			#nav {
-				position: relative;
-				margin: 0.5em 0 0 0;
-				line-height: 2.25em;
-				height: 2.25em;
-			}
-
-				#nav > ul > li {
-					margin-left: 0;
-				}
-
-					#nav > ul > li.break {
-						margin-left: 0;
-					}
-
-			.dropotron.level-0 {
-				margin-top: 1.1em;
-			}
 
 		/* Hero */
 
