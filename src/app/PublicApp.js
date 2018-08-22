@@ -15,6 +15,7 @@ import SchemeView from './SchemeView';
 import SchemeBracketView from './SchemeBracketView';
 import User from './User';
 import InviteTeammate from './InviteTeammate';
+import Invitations from './Invitations';
 import Contacts from './Contacts';
 import Faq from './Faq';
 import Accommodation from './Accommodation';
@@ -45,6 +46,7 @@ export class PublicApp extends React.Component {
           <Route path="/editions/:id" render={(params) => <Schemes {...params} />} />
           <Route path="/editions" component={Editions} />
           <Route path="/schemes/:id/invite" component={InviteTeammate} />
+          <Route path="/invitations" render={(params) => <Invitations {...params} />} />
           <Route path="/schemes/:id" component={SchemeView} />
           <Route path="/bracket/:id" component={SchemeBracketView} />
           <Route path="/ranking" component={Ranking} />

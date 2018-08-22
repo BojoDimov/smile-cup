@@ -39,6 +39,15 @@
   margin-right: 2rem;
 }
 
+.button.basic {
+  overflow-x: auto;
+}
+
+.button.basic:hover {
+  color: initial;
+  cursor: default;
+}
+
 .special-button {
   padding: .5em .8em;
   cursor: pointer;
