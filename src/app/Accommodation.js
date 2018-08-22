@@ -22,7 +22,7 @@ export default class Accommodation extends React.Component {
                 <a href="http://www.hotel-malibu.com/">www.hotel-malibu.com</a>
               </p>
 
-              <h3>Хотел & Спа Фламинго Гранд 5*</h3>
+              <h3>Хотел & Спа „Фламинго Гранд“ 5*</h3>
               <h4 style={{ textDecoration: 'underline' }}>Full Board или Bed and Breakfast</h4>
               <p>
 
