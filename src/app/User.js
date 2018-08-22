@@ -12,9 +12,9 @@ export default class User extends React.Component {
       user: {
         details: {}
       },
+      errors: {},
       canEdit: false,
-      isInEditMode: false,
-      startedPlayingInputType: 'text'
+      isInEditMode: false
     }
   }
 
@@ -57,9 +57,11 @@ export default class User extends React.Component {
 
         this.setState({
           user: user,
-          isInEditMode: false
+          isInEditMode: false,
+          errors: {}
         });
-      });
+      })
+      .catch(err => this.setState({ errors: err }));
   }
 
   updateDetails(prop, value) {
@@ -95,11 +97,10 @@ export default class User extends React.Component {
                     <div className="col-12">
                       <div>Започнах да играя тенис през:</div>
                       <input placeholder="няма записани данни"
-                        value={this.state.startedPlayingInputType == 'text' ? this.getDate(user.details.startedPlaying) : user.details.startedPlaying}
-                        type={this.state.startedPlayingInputType}
-                        onFocus={() => this.setState({ startedPlayingInputType: 'date' })}
-                        onBlur={() => this.setState({ startedPlayingInputType: 'text' })}
-                        onChange={e => this.updateDetails('startedPlaying', e.target.value)} />
+                        value={user.details.startedPlaying}
+                        type="number"
+                        onChange={e => this.updateDetails('startedPlaying', e.target.value || null)} />
+                      <div className="error">{this.state.errors.startedPlaying ? '*Въведете нормална дата' : null}</div>
                     </div>
 
                     <div className="col-12">
@@ -133,7 +134,7 @@ export default class User extends React.Component {
                   </div>
                 </form>
                 : <React.Fragment>
-                  <DataBox label="Започнах да играя през" data={this.getDate(user.details.startedPlaying)} />
+                  <DataBox label="Започнах да играя през" data={`${user.details.startedPlaying} г.`} />
                   <DataBox label="Играя със" data={EnumsLocalization.PlayStyle[user.details.playStyle]} />
                   <DataBox label="Бекхенд" data={EnumsLocalization.BackhandType[user.details.backhand]} />
                   <DataBox label="Любима настилка" data={EnumsLocalization.CourtType[user.details.courtType]} />

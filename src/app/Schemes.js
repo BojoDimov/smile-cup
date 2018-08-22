@@ -65,13 +65,13 @@ export default class Schemes extends React.Component {
         <div style={{ flexBasis: '16rem', flexGrow: 1, cursor: 'pointer' }}
           onClick={() => this.props.history.push(`/schemes/${scheme.id}`)}>
           <div className="list-row-header"
-            style={{ cursor: 'pointer' }}>
-            {scheme.name}
+            style={{ cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
+            <span style={{ flexBasis: '8em' }}>{scheme.name}</span>
             <span style={{ textAlign: 'center', fontSize: '1rem', marginLeft: '1rem' }}>
               {getLimitations(scheme)}
             </span>
           </div>
-          <p style={{ fontSize: '.9em' }}>{scheme.info}</p>
+          <span style={{ fontSize: '.9em' }}>{scheme.info}</span>
         </div>
 
 
