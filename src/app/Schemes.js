@@ -62,16 +62,19 @@ export default class Schemes extends React.Component {
     return (
       <div className="button list-row" key={i} >
         <img src="../images/smile-logo.jpg" />
-        <div >
+        <div style={{ flexBasis: '16rem', flexGrow: 1, cursor: 'pointer' }}
+          onClick={() => this.props.history.push(`/schemes/${scheme.id}`)}>
           <div className="list-row-header"
-            style={{ cursor: 'pointer' }}
-            onClick={() => this.props.history.push(`/schemes/${scheme.id}`)}>{scheme.name}</div>
-          <div style={{ fontWeight: 700 }}>{getLocaleDate(scheme.date)}</div>
+            style={{ cursor: 'pointer' }}>
+            {scheme.name}
+            <span style={{ textAlign: 'center', fontSize: '1rem', marginLeft: '1rem' }}>
+              {getLimitations(scheme)}
+            </span>
+          </div>
+          <p style={{ fontSize: '.9em' }}>{scheme.info}</p>
         </div>
 
-        <div style={{ flexGrow: 1, textAlign: 'center' }}>
-          {getLimitations(scheme)}
-        </div>
+
 
         <SchemeInfo scheme={scheme} />
 
@@ -99,7 +102,7 @@ export default class Schemes extends React.Component {
 
   getButton(scheme) {
     let button = null;
-    if (!this.state.user)
+    if (!this.state.user && scheme.status != Enums.Status.FINALIZED)
       return {
         confirm: false,
         message: null,
@@ -110,6 +113,20 @@ export default class Schemes extends React.Component {
           if (e)
             e.stopPropagation();
           return this.props.history.push(`/login`);
+        }
+      }
+
+    if (!this.state.user)
+      return {
+        confirm: false,
+        message: null,
+        title: null,
+        name: 'Преглед',
+        class: 'b',
+        onClick: (e) => {
+          if (e)
+            e.stopPropagation();
+          return this.props.history.push(`/schemes/${scheme.id}`);
         }
       }
 
@@ -237,7 +254,7 @@ export class SchemeInfo extends React.Component {
     let scheme = this.props.scheme;
     if (scheme.status == Enums.Status.FINALIZED)
       return (
-        <div style={{ padding: '1rem', width: '14rem' }}>
+        <div style={{ padding: '1rem', width: '14rem', fontSize: '.9em' }}>
           <div>{`Победител${!scheme.singleTeams ? 'и:' : ':'}`}</div>
           <Link style={{ display: 'block', border: 'none' }}
             to={`/users/${this.state.winner.user1Id}`}>{this.state.winner.user1.name}</Link>
@@ -249,16 +266,16 @@ export class SchemeInfo extends React.Component {
       );
     else if (scheme.groupPhase)
       return (
-        <div style={{ padding: '1rem', width: '14rem' }}>
+        <div style={{ padding: '1rem', width: '14rem', fontSize: '.9em' }}>
           {/* <div>Участват първите двама от група</div>
           <Link to={`/schemes/${scheme.groupPhaseId}`} style={{ border: 'none' }}>{scheme.groupPhase.name}</Link> */}
         </div>
       );
     else
       return (
-        <div style={{ padding: '1rem', width: '14rem' }}>
-          <div>Записване</div>
-          <div>{getLocaleDateTime(scheme.registrationStart)}</div> <div>{getLocaleDateTime(scheme.registrationEnd)}</div>
+        <div style={{ padding: '1rem', width: '14rem', fontSize: '.9em' }}>
+          <div>Записване:</div>
+          <div>до {getLocaleDateTime(scheme.registrationEnd)}</div>
         </div>
       );
   }

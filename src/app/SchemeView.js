@@ -64,8 +64,12 @@ export default class SchemeView extends React.Component {
       <div className="wrapper">
         <div className="container">
           {button ?
-            <div style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap' }}>
-              <h2 style={{ flex: 4, flexBasis: '14rem' }}>{this.state.scheme.TournamentEdition.name} - {this.state.scheme.name}</h2>
+            <div style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', alignItems: 'center' }}>
+              <div style={{ flex: 4, flexBasis: '14rem' }}>
+                <h2>{this.state.scheme.TournamentEdition.name} - {this.state.scheme.name}</h2>
+                <p style={{ fontSize: '.9em' }}>{this.state.scheme.info}</p>
+              </div>
+
               <div style={{ display: 'flex', justifyContent: 'space-between', flex: 1 }}>
                 <ConfirmationButton message={button.message}
                   confirm={button.confirm}
