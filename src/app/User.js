@@ -134,7 +134,7 @@ export default class User extends React.Component {
                   </div>
                 </form>
                 : <React.Fragment>
-                  <DataBox label="Започнах да играя през" data={`${user.details.startedPlaying} г.`} />
+                  <DataBox label="Започнах да играя през" data={`${user.details.startedPlaying}`} />
                   <DataBox label="Играя със" data={EnumsLocalization.PlayStyle[user.details.playStyle]} />
                   <DataBox label="Бекхенд" data={EnumsLocalization.BackhandType[user.details.backhand]} />
                   <DataBox label="Любима настилка" data={EnumsLocalization.CourtType[user.details.courtType]} />
