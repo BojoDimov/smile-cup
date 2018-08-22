@@ -39,6 +39,9 @@ export class PublicApp extends React.Component {
           <Route path="/news/:id" component={NewsView} />
           <Route path="/news" component={News} />
           <Route path="/users/:id" component={User} />
+          <Route path="/editions/:id/*" render={props =>
+            <Redirect to={`/editions/${props.match.params.id}`} />
+          } />
           <Route path="/editions/:id" render={(params) => <Schemes {...params} />} />
           <Route path="/editions" component={Editions} />
           <Route path="/schemes/:id/invite" component={InviteTeammate} />
