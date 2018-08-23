@@ -61,7 +61,7 @@ export default class Registration extends React.Component {
             <div className="col-12">
               <input placeholder="Име" type="text"
                 onChange={e => this.setState({ name: e.target.value })} />
-              <div className="error">{this.state.errors.name ? '*Полето не трябва да е празно и се допускат само имена на кирилица' : null}</div>
+              <div className="error">{this.state.errors.name ? '*Името трябва да бъде на кирилица във формат: Име Фамилия' : null}</div>
             </div>
             <div className="col-12">
               <input placeholder="Дата на раждане" type={this.state.inputType}
