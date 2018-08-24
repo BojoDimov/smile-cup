@@ -36,7 +36,6 @@ export class PaymentForm extends React.Component {
       <form method="POST" action="https://www.epay.bg/" style={{ marginRight: '1rem' }}>
         <input type="submit" value="Плащане" />
         <input type="hidden" name="PAGE" value="credit_paydirect" />
-        <input type="hidden" name="LANG" value="bg" />
         <input type="hidden" name="ENCODED" value={this.props.payment.encoded} />
         <input type="hidden" name="URL_OK" value={this.props.url} />
         <input type="hidden" name="URL_CANCEL" value={this.props.url} />
@@ -132,10 +131,10 @@ export default class SchemeView extends React.Component {
             {/* {this.getList(this.state.enrollments, 3)} */}
             {this.state.showEnrollments ?
               this.state.enrollments.map((e, i) =>
-                <div key={i} style={{ opacity: (e.isPaid ? 1 : .5) }}>
+                <div key={i} style={{ opacity: 1 }}>
                   <Link to={`/users/${e.user1Id}`} key={i}>{i + 1}. {e.user1Name}</Link>
                   {e.user2Id ? <Link to={`/users/${e.user2Id}`} key={i}> & {e.user2Name}</Link> : null}
-                  {!e.isPaid ? <span> (в процес на потвърждаване)</span> : null}
+                  {/* {!e.isPaid ? <span> (в процес на потвърждаване)</span> : null} */}
                 </div>)
               : null}
 
