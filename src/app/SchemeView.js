@@ -33,7 +33,7 @@ export class PaymentForm extends React.Component {
         </span>
       );
     else return (
-      <form method="POST" action="https://demo.epay.bg/" style={{ marginRight: '1rem' }}>
+      <form method="POST" action="https://epay.bg/" style={{ marginRight: '1rem' }}>
         <input type="submit" value="Плащане" />
         <input type="hidden" name="PAGE" value="paylogin" />
         <input type="hidden" name="ENCODED" value={this.props.payment.encoded} />
