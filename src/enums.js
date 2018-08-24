@@ -26,5 +26,10 @@ module.exports = {
   Gender: {
     MALE: 'male',
     FEMALE: 'female'
+  },
+  PaymentStatus: {
+    UNPAID: 'unpaid',
+    PENDING: 'pending',
+    PAID: 'paid'
   }
 }

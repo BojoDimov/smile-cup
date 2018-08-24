@@ -2,11 +2,48 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Queries from '../services/queries';
 import { BracketPreview } from './bracket/BracketPreview';
-import { ConfirmationButton, createOpenModalEvent, AccommodationMessage } from './Infrastructure';
+import { ConfirmationButton, createOpenModalEvent, AccommodationMessage, CancelEnrollMessage } from './Infrastructure';
 import { get, post } from '../services/fetch';
 import * as Enums from '../enums';
 import * as UserService from '../services/user';
 import './scheme-view-styles.css';
+const env = process.env.NODE_ENV || 'development';
+const config = require(__dirname + '/../clientConfig.js')[env];
+console.log(config);
+
+export class PaymentForm extends React.Component {
+  render() {
+    let payment = this.props.payment;
+    if (!payment || this.props.disable)
+      return null;
+    else if (payment.status == Enums.PaymentStatus.PENDING)
+      return (
+        <span className="payment">
+          <i className="fas fa-hourglass-end"
+            style={{ marginRight: '.3rem' }}></i>
+          Плащането е в процес на обработка.
+          </span>
+      );
+    else if (payment.status == Enums.PaymentStatus.PAID)
+      return (
+        <span className="payment success">
+          <i className="fas fa-check-circle"
+            style={{ marginRight: '.3rem' }}></i>
+          Платена такса.
+        </span>
+      );
+    else return (
+      <form method="POST" action="https://demo.epay.bg/" style={{ marginRight: '1rem' }}>
+        <input type="submit" value="Плащане" />
+        <input type="hidden" name="PAGE" value="paylogin" />
+        <input type="hidden" name="ENCODED" value={this.props.payment.encoded} />
+        <input type="hidden" name="URL_OK" value={this.props.url} />
+        <input type="hidden" name="URL_CANCEL" value={this.props.url} />
+        <input type="hidden" name="CHECKSUM" value={this.props.payment.checksum} />
+      </form>
+    );
+  }
+}
 
 export default class SchemeView extends React.Component {
   constructor(props) {
@@ -20,7 +57,7 @@ export default class SchemeView extends React.Component {
         TournamentEdition: {}
       },
       team: {},
-      showEnrollments: false,
+      showEnrollments: true,
       showQueue: false,
       showDraw: false,
     }
@@ -64,25 +101,26 @@ export default class SchemeView extends React.Component {
       <div className="wrapper">
         <div className="container">
           {button ?
-            <div style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', alignItems: 'center' }}>
-              <div style={{ flex: 4, flexBasis: '14rem' }}>
-                <h2>{this.state.scheme.TournamentEdition.name} - {this.state.scheme.name}</h2>
-                <p style={{ fontSize: '.9em' }}>{this.state.scheme.info}</p>
+            <React.Fragment>
+              <div style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', alignItems: 'center' }}>
+                <div style={{ flex: 4, flexBasis: '14rem' }}>
+                  <h2>{this.state.scheme.TournamentEdition.name} - {this.state.scheme.name}</h2>
+                  <p style={{ fontSize: '.9em' }}>{this.state.scheme.info}</p>
+                </div>
               </div>
-
-              <div style={{ display: 'flex', justifyContent: 'space-between', flex: 1 }}>
+              <div style={{ display: 'flex' }}>
+                {this.isEnrolled() ?
+                  <PaymentForm payment={this.state.payment}
+                    url={`${config.frontend}/schemes/${this.state.scheme.id}`}
+                    disable={true} /> : null}
                 <ConfirmationButton message={button.message}
                   confirm={button.confirm}
                   onChange={flag => flag ? button.onClick() : null} >
                   <span className={`special-button small ${button.class}`}
                     title={button.title}>{button.name}</span>
                 </ConfirmationButton>
-                {this.isEnrolled() ?
-                  <div>
-                    <span className="special-button small disabled" title="Плащането през сайта ще бъде отворено скоро." >Плащане</span>
-                  </div> : null}
               </div>
-            </div>
+            </React.Fragment>
             : <h2 style={{ textAlign: 'center' }}>{this.state.scheme.TournamentEdition.name} - {this.state.scheme.name}</h2>
           }
 
@@ -93,9 +131,10 @@ export default class SchemeView extends React.Component {
             {/* {this.getList(this.state.enrollments, 3)} */}
             {this.state.showEnrollments ?
               this.state.enrollments.map((e, i) =>
-                <div key={i}>
+                <div key={i} style={{ opacity: (e.isPaid ? 1 : .5) }}>
                   <Link to={`/users/${e.user1Id}`} key={i}>{i + 1}. {e.user1Name}</Link>
                   {e.user2Id ? <Link to={`/users/${e.user2Id}`} key={i}> & {e.user2Name}</Link> : null}
+                  {!e.isPaid ? <span> (в процес на потвърждаване)</span> : null}
                 </div>)
               : null}
 
@@ -178,7 +217,7 @@ export default class SchemeView extends React.Component {
     if (this.isEnrolled())
       return {
         confirm: true,
-        message: `Сигурни ли сте че искате да се отпишете от турнир "${scheme.name}"?`,
+        message: <CancelEnrollMessage name={scheme.name} />,
         title: null,
         name: 'Отписване',
         class: 'default',

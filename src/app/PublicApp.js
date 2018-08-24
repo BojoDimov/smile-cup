@@ -22,6 +22,8 @@ import Accommodation from './Accommodation';
 import Gallery from './Gallery';
 import Recovery from './Recovery';
 import Activation from './Activation';
+import PaymentPending from './PaymentPending';
+import PaymentsTest from './PaymentsTest';
 import { ModalHolder } from './Infrastructure';
 import '../css/styles.css';
 
@@ -59,6 +61,8 @@ export class PublicApp extends React.Component {
           <Route path="/gallery" component={Gallery} />
           <Route path="/recovery" render={(params) => <Recovery {...params} />} />
           <Route path="/activation" render={(params) => <Activation {...params} />} />
+          <Route path="/payments/:id/pending" render={(params) => <PaymentPending {...params} />} />
+          <Route path="/payments/:id/test" render={(params) => <PaymentsTest {...params} />} />
           <Route>
             <Redirect to="/home" />
           </Route>

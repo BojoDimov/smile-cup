@@ -2,6 +2,15 @@ import React from 'react';
 import { Link, Route } from 'react-router-dom';
 import { get } from '../services/fetch';
 
+export const CancelEnrollMessage = ({ name }) => (
+  <div style={{ textAlign: 'left', display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
+    <div>Сигурни ли сте че искате да се отпишете от турнир {name}?</div>
+    <div style={{ color: 'darkred', fontWeight: 700 }}>ВНИМАНИЕ!!! Ако имате платена такса тя ще бъде загубена.</div>
+    <div>За въпроси: Ивайло Коев </div>
+    <div>На телефон: +359 883 326 235 или на <a href="mailto:tournaments@smilevent.net">tournaments@smilevent.net</a></div>
+  </div>
+)
+
 export const AccommodationMessage = () => {
   return (
     <ModalMessage

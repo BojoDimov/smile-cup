@@ -114,3 +114,13 @@
 .special-button + .special-button {
   margin-left: 1rem;
 }
+
+.payment {
+  margin-right: 1rem;
+  padding: .2em .8em;
+}
+
+.success {
+  color: #61A300;
+  font-weight: 700;
+}

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { get } from '../services/fetch';
-import { ConfirmationButton, AccommodationMessage, createOpenModalEvent } from './Infrastructure';
+import { ConfirmationButton, AccommodationMessage, createOpenModalEvent, CancelEnrollMessage } from './Infrastructure';
 import './fast-styles.css';
 import * as UserService from '../services/user';
 import * as Enums from '../enums';
@@ -162,7 +162,7 @@ export default class Schemes extends React.Component {
     if (this.state.enrolled.find(e => e == scheme.id))
       return {
         confirm: true,
-        message: `Сигурни ли сте че искате да се отпишете от турнир "${scheme.name}"?`,
+        message: <CancelEnrollMessage name={scheme.name} />,
         title: null,
         name: 'Отписване',
         class: 'default',
