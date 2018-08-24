@@ -35,7 +35,7 @@ export class PaymentForm extends React.Component {
     else return (
       <form method="POST" action="https://epay.bg/" style={{ marginRight: '1rem' }}>
         <input type="submit" value="Плащане" />
-        <input type="hidden" name="PAGE" value="paylogin" />
+        <input type="hidden" name="PAGE" value="credit_paydirect" />
         <input type="hidden" name="ENCODED" value={this.props.payment.encoded} />
         <input type="hidden" name="URL_OK" value={this.props.url} />
         <input type="hidden" name="URL_CANCEL" value={this.props.url} />
