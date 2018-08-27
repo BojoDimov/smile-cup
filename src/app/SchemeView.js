@@ -33,14 +33,25 @@ export class PaymentForm extends React.Component {
         </span>
       );
     else return (
-      <form method="POST" action="https://www.epay.bg/" style={{ marginRight: '1rem' }}>
-        <input type="submit" value="Плащане" />
+      {/* <form method="POST" action="https://demo.epay.bg/" style={{ marginRight: '1rem' }}>
+         <input type="submit" value="Плащане" />
         <input type="hidden" name="PAGE" value="credit_paydirect" />
         <input type="hidden" name="ENCODED" value={this.props.payment.encoded} />
         <input type="hidden" name="URL_OK" value={this.props.url} />
         <input type="hidden" name="URL_CANCEL" value={this.props.url} />
-        <input type="hidden" name="CHECKSUM" value={this.props.payment.checksum} />
-      </form>
+        <input type="hidden" name="CHECKSUM" value={this.props.payment.checksum} /> 
+        <input type="submit" value="Плащане" />
+        <input type="hidden" name="PAGE" value="paylogin" />
+        <input type="hidden" name="MIN" value={payment.min} />
+        <input type="hidden" name="INVOICE" value={payment.invoice} />
+        <input type="hidden" name="AMOUNT" value={payment.amount} />
+        <input type="hidden" name="DESCR" value={payment.description} />
+        <input type="hidden" name="ENCODING" value="utf-8" />
+        <input type="hidden" name="ENCODED" value={payment.encoded} />
+        <input type="hidden" name="URL_OK" value={this.props.url} />
+        <input type="hidden" name="URL_CANCEL" value={this.props.url} />
+        <input type="hidden" name="CHECKSUM" value={payment.checksum} />
+      </form>*/}
     );
   }
 }
