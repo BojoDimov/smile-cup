@@ -29,9 +29,8 @@ export default class Schemes extends React.Component {
       <div className="wrapper">
         <div className="container list">
           <header className="major">
-            <a href="https://docs.google.com/forms/d/e/1FAIpQLSesQ6bKmCI1YeInay6O1pbW4_XFV4GHV4L03tu9hjCWigcV6w/formResponse"
-              className="special-button b" style={{ width: '16rem' }} target="_blank">
-              Такси и записване</a>
+            {/* <a className="special-button b" style={{ width: '16rem' }} target="_blank">
+              Такси и записване</a> */}
           </header>
           <h2>{this.state.edition.name}</h2>
           {this.state.schemes.map(this.getScheme.bind(this))}
