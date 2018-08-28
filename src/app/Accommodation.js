@@ -7,7 +7,19 @@ export default class Accommodation extends React.Component {
         <section class="container">
           <section style={{ display: 'flex', justifyContent: 'center' }}>
             <div>
-              <h2 style={{ marginBottom: '1rem' }}>Настаняване</h2>
+              <h2 style={{ marginBottom: '1rem', fontWeight: 700 }}>Плащане</h2>
+              <p>Моля, платете таксата за участия за турнирите на каса в Easypay или по банков път.
+            Можете да заплатите и таксата за двойки от името на вашия партньор.
+            </p>
+              <p> <b>
+                Данни в Epay: "Смайл Ивентс" ООД
+              <br />
+                Клиентски номер: 0553292350
+              <br />
+                IBAN: BG32 ESPY 4004 0032 9417 38
+            </b></p>
+
+              <h2 style={{ marginBottom: '1rem', fontWeight: 700 }}>Настаняване</h2>
 
               <h3>Официални хотели на турнира:</h3>
 

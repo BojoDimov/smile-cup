@@ -30,7 +30,7 @@ export default class Footer extends React.Component {
           </header>
           <ul className="menu" style={{ textAlign: 'center' }}>
             <li><a href="/contacts">За нас</a></li>
-            <li><a href="/accommodation">Настаняване</a></li>
+            <li><a href="/partners">Партньори</a></li>
             <li><a href="/faq">Регламент на турнирите</a></li>
             <li>&copy; SmileEventS. All rights reserved.</li>
           </ul>
