@@ -52,6 +52,9 @@
 }
 
 @media screen and (max-width: 479px) {
+  .modal {
+    margin-top: 10vh;
+  }
   .modal ul {
     width: 10rem;
     margin: 1rem auto;

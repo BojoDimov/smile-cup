@@ -51,7 +51,7 @@ export default class Registration extends React.Component {
             <div className="col-12">
               <input placeholder="Парола" type="password"
                 onChange={e => this.setState({ password: e.target.value })} />
-              <div className="error">{this.state.errors.password ? '*Паролата трябва да бъде поне 8 символа, да поне една цифра, една малка буква и една голяма буква' : null}</div>
+              <div className="error">{this.state.errors.password ? '*Паролата трябва да бъде поне 6 символа и да не съдържа букви на кирилица' : null}</div>
             </div>
             <div className="col-12">
               <input placeholder="Повтори парола" type="password"
