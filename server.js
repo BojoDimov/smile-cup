@@ -9,7 +9,6 @@ app.use(cors());
 app.use('/', express.static('build'));
 
 app.use('/api/payments', (req, res, next) => {
-  console.log('caught request\n', req);
   proxy.web(req, res, { target: 'http://localhost:8080/api/payments' }, next);
 });
 app.get('*', (req, res) => {

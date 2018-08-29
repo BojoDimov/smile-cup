@@ -9,7 +9,6 @@ import * as UserService from '../services/user';
 import './scheme-view-styles.css';
 const env = process.env.NODE_ENV || 'development';
 const config = require(__dirname + '/../clientConfig.js')[env];
-console.log(config);
 
 export class PaymentForm extends React.Component {
   render() {
@@ -120,10 +119,10 @@ export default class SchemeView extends React.Component {
                 </div>
               </div>
               <div style={{ display: 'flex' }}>
-                {this.isEnrolled() ?
+                {/* {this.isEnrolled() ?
                   <PaymentForm payment={this.state.payment}
                     url={`${config.frontend}/schemes/${this.state.scheme.id}`}
-                    disable={true} /> : null}
+                    disable={true} /> : null} */}
                 <ConfirmationButton message={button.message}
                   confirm={button.confirm}
                   onChange={flag => flag ? button.onClick() : null} >
