@@ -2,7 +2,13 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Queries from '../services/queries';
 import { BracketPreview } from './bracket/BracketPreview';
-import { ConfirmationButton, createOpenModalEvent, AccommodationMessage, CancelEnrollMessage } from './Infrastructure';
+import {
+  ConfirmationButton,
+  createOpenModalEvent,
+  AccommodationMessage,
+  CancelEnrollMessage,
+  TeamNames
+} from './Infrastructure';
 import { get, post } from '../services/fetch';
 import * as Enums from '../enums';
 import * as UserService from '../services/user';
@@ -141,11 +147,8 @@ export default class SchemeView extends React.Component {
             {/* {this.getList(this.state.enrollments, 3)} */}
             {this.state.showEnrollments ?
               this.state.enrollments.map((e, i) =>
-                <div key={i} style={{ opacity: 1 }}>
-                  <Link to={`/users/${e.user1Id}`} key={i}>{i + 1}. {e.user1Name}</Link>
-                  {e.user2Id ? <Link to={`/users/${e.user2Id}`} key={i}> & {e.user2Name}</Link> : null}
-                  {/* {!e.isPaid ? <span> (в процес на потвърждаване)</span> : null} */}
-                </div>)
+                <TeamNames key={i} order={i + 1} team={e} singleTeams={this.state.scheme.singleTeams} />
+              )
               : null}
 
             {this.state.showEnrollments && this.state.enrollments.length == 0 ?
@@ -159,10 +162,7 @@ export default class SchemeView extends React.Component {
             {/* {this.getList(this.state.enrollments, 3)} */}
             {this.state.showQueue ?
               this.state.queue.map((e, i) =>
-                <div>
-                  <Link to={`/users/${e.user1Id}`} key={i}>{i + 1}. {e.user1Name}</Link>
-                  {e.user2Id ? <Link to={`/users/${e.user2Id}`} key={i}> & {e.user2Name}</Link> : null}
-                </div>)
+                <TeamNames key={i} order={i + 1} team={e} singleTeams={this.state.scheme.singleTeams} />)
               : null}
 
             {this.state.showQueue && this.state.queue.length == 0 ?

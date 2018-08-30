@@ -1,6 +1,35 @@
 import React from 'react';
 import { Link, Route } from 'react-router-dom';
 import { get } from '../services/fetch';
+import * as Enums from '../enums';
+
+export class TeamNames extends React.Component {
+  render() {
+    let team = this.props.team;
+    let singleTeams = this.props.singleTeams;
+
+    if (singleTeams)
+      return <div style={{ display: 'flex' }}>
+        <span style={{ margin: '0 .3rem' }}>{this.props.order}.</span>
+        <Link to={`/users/${team.user1Id}`}>{team.user1Name}</Link>
+      </div>
+
+    if (team.user1Gender == Enums.Gender.MALE)
+      return <div style={{ display: 'flex' }}>
+        <span style={{ margin: '0 .3rem' }}>{this.props.order}.</span>
+        <Link to={`/users/${team.user1Id}`}>{team.user1Name}</Link>
+        <span style={{ margin: '0 .3rem' }}>&</span>
+        <Link to={`/users/${team.user2Id}`}>{team.user2Name}</Link>
+      </div>
+    else
+      return <div style={{ display: 'flex' }}>
+        <span style={{ margin: '0 .3rem' }}>{this.props.order}.</span>
+        <Link to={`/users/${team.user2Id}`}>{team.user2Name}</Link>
+        <span style={{ margin: '0 .3rem' }}>&</span>
+        <Link to={`/users/${team.user1Id}`}>{team.user1Name}</Link>
+      </div>
+  }
+}
 
 export const CancelEnrollMessage = ({ name }) => (
   <div style={{ textAlign: 'left', display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
