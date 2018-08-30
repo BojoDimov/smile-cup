@@ -31,7 +31,7 @@ export default class Registration extends React.Component {
         this.setState({ showMessage: true });
         setTimeout(() => this.setState({ showMessage: false }), 5000);
         return res;
-      })
+      });
   }
 
   render() {
@@ -60,8 +60,13 @@ export default class Registration extends React.Component {
             </div>
             <div className="col-12">
               <input placeholder="Име" type="text"
-                onChange={e => this.setState({ name: e.target.value })} />
-              <div className="error">{this.state.errors.name ? '*Името трябва да бъде на кирилица във формат: Име Фамилия' : null}</div>
+                onChange={e => this.setState({ firstName: e.target.value })} />
+              <div className="error">{this.state.errors.firstName ? '*Задължително поле' : null}</div>
+            </div>
+            <div className="col-12">
+              <input placeholder="Фамилия" type="text"
+                onChange={e => this.setState({ sirName: e.target.value })} />
+              <div className="error">{this.state.errors.sirName ? '*Задължително поле' : null}</div>
             </div>
             <div className="col-12">
               <input placeholder="Дата на раждане" type={this.state.inputType}
