@@ -71,8 +71,8 @@ export default class Registration extends React.Component {
             <div className="col-12">
               {/* onFocus={() => this.setState({ inputType: 'date' })}
                 onBlur={() => this.setState({ inputType: 'text' })} */}
-              {/* <div style={{ textAlign: 'left' }}>Дата на раждане</div> */}
-              <input placeholder="Дата на раждане" type="date"
+              <div style={{ textAlign: 'left' }}>Дата на раждане</div>
+              <input type="date"
                 onChange={e => this.setState({ birthDate: e.target.value })} />
               <div className="error">{this.state.errors.birthDate ? '*Невалидна дата' : null}</div>
             </div>
