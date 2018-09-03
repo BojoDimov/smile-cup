@@ -33,6 +33,14 @@ export default class Partners extends React.Component {
               </div>
             </section>
           </div>
+
+          <div className="row">
+            <section className="col-6 col-12-narrower feature">
+              <div className="image-wrapper first">
+                <a class="image featured first"><img style={{ maxHeight: '25rem', maxWidth: '25rem', margin: 'auto', display: 'inline-block' }} src="../partners/tennis-kafe-logo.png" alt="" /></a>
+              </div>
+            </section>
+          </div>
         </div>
       </div>
     );
