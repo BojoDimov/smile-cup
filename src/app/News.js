@@ -14,12 +14,6 @@ export default class News extends React.Component {
     get('/news').then(e => this.setState({ news: e }));
   }
 
-  getBy3() {
-    for (let i = 0; i < this.state.news; i++) {
-
-    }
-  }
-
   render() {
     return (
       <div class="wrapper">
