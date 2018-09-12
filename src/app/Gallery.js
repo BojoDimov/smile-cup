@@ -1,9 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
 
+import { createOpenModalEvent, createCloseModalEvent } from './Infrastructure';
 import { get, imgUrl } from '../services/fetch';
 const env = process.env.NODE_ENV || 'development';
 const config = require(__dirname + '/../clientConfig.js')[env];
+
 
 export default class Gallery extends React.Component {
   constructor(props) {
@@ -14,7 +16,6 @@ export default class Gallery extends React.Component {
   }
 
   componentDidMount() {
-    console.log('baba');
     get(`/gallery?tournamentId=${config.tournamentId}`)
       .then(e => this.setState({ images: e }));
   }
@@ -36,9 +37,13 @@ export default class Gallery extends React.Component {
               <div className="row features">
                 {arr.map((n, i) => (
                   <section className="col-4 col-12-narrower feature">
-                    <div className={"image-wrapper" + (i == 0 ? " first" : "")}>
+                    <div className={"image-wrapper" + (i == 0 ? " first" : "")}
+                      onClick={() => createOpenModalEvent(<ImageModal src={imgUrl(n.imageId)} />, () => null)}>
                       <span className="image featured" >
-                        <img style={{ maxHeight: '12rem', width: 'auto', margin: 'auto' }} src={imgUrl(n.imageId)} />
+                        <img
+                          style={{ maxHeight: '12rem', width: 'auto', margin: 'auto', cursor: 'pointer' }}
+                          src={imgUrl(n.imageId)}
+                        />
                       </span>
                     </div>
                   </section>
@@ -46,6 +51,26 @@ export default class Gallery extends React.Component {
               </div>
             ))}
         </section>
+      </div>
+    );
+  }
+}
+
+class ImageModal extends React.Component {
+  render() {
+    const { src } = this.props;
+
+    return (
+      <div className="image-modal">
+        <div className="img">
+          <img src={src} />
+          <span
+            style={{ position: 'absolute', top: '5px', right: '10px', color: 'white', cursor: 'pointer' }}
+            onClick={() => createCloseModalEvent()}
+          >
+            <i className="fa fa-times" ></i>
+          </span>
+        </div>
       </div>
     );
   }

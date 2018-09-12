@@ -59,8 +59,6 @@ export default class Schemes extends React.Component {
   }
 
   getScheme(scheme, i) {
-    // if (scheme.groupPhase && scheme.groupPhase.status === Enums.Status.PUBLISHED)
-    //   scheme = scheme.groupPhase
     const button = this.getButton(scheme);
 
     return (
