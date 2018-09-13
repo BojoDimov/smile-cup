@@ -255,7 +255,7 @@ export default class SchemeView extends React.Component {
       }
 
     if (scheme[this.state.user.gender + 'Teams']
-      && (!scheme.ageFrom || scheme.ageFrom < age)
+      && (!scheme.ageFrom || scheme.ageFrom <= age)
       && (!scheme.ageTo || scheme.ageTo > age)) {
       if (new Date() > new Date(scheme.registrationEnd))
         return {
