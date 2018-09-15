@@ -59,6 +59,10 @@ export const AccommodationMessage = () => {
               Клиентски номер: 0553292350
               <br />
               IBAN: BG32 ESPY 4004 0032 9417 38
+              <br />
+              Сингъл: 25 лв
+              <br />
+              Двойки: 30 лв отбор
             </p>
           </b></div>
         </React.Fragment>} />);
