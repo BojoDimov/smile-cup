@@ -88,7 +88,7 @@ class Invitation extends React.Component {
           <div>Изпращач: <Link to={`/users/${data.inviter.id}`}>{data.inviter.name}</Link></div>
         </div> */}
         <ConfirmationButton
-          message={`Моля потвърдете че искате да сте в отбор с ${data.inviter.name}`}
+          message={`Моля, потвърдете, че искате да сте в отбор с ${data.inviter.name}`}
           confirm={true}
           onChange={flag => flag ? this.accept() : null} >
           <span

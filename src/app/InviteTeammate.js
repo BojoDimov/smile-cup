@@ -120,7 +120,7 @@ export default class InviteTeammate extends React.Component {
     if (user.canAccept)
       return {
         confirm: true,
-        message: `Моля потвърдете че искате да сте в отбор с ${user.name}`,
+        message: `Моля, потвърдете, че искате да сте в отбор с ${user.name}`,
         title: `Ще бъдете записани в отбор с ${user.name}`,
         name: 'Приемане',
         class: 'g',
@@ -134,7 +134,7 @@ export default class InviteTeammate extends React.Component {
     if (user.canInvite)
       return {
         confirm: true,
-        message: `Моля потвърдете изпращането на покана до ${user.name}. Ще бъдете уведомени с имейл когато ${user.name} приеме поканата Ви.`,
+        message: `Моля, потвърдете изпращането на покана до ${user.name}. Ще бъдете уведомени с имейл когато ${user.name} приеме поканата Ви.`,
         title: `Ще бъдете уведомени когато ${user.name} приеме поканата`,
         name: 'Покана',
         class: 'g',
@@ -148,7 +148,7 @@ export default class InviteTeammate extends React.Component {
     if (user.canRevoke)
       return {
         confirm: true,
-        message: `Моля потвърдете отказа на поканата към ${user.name}`,
+        message: `Моля, потвърдете отказа на поканата към ${user.name}`,
         title: null,
         name: 'Отказ на поканата',
         class: 'b',
