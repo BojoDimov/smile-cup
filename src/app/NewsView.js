@@ -57,14 +57,16 @@ export default class NewsView extends React.Component {
               </article>
               {this.state.news.subsections.map((sub, i) => (
                 <article id="content" key={i}>
+
+
+                  <header>
+                    <h3>{sub.heading}</h3>
+                  </header>
                   {sub.fileId ?
                     <img style={{ width: 'auto', maxWidth: '100%', marginTop: '1rem' }}
                       src={imgUrl(sub.fileId)}
                       alt="" /> : null}
 
-                  <header>
-                    <h3>{sub.heading}</h3>
-                  </header>
                   {/* <p>{sub.body.split('\n').slice(0, -1).map(l => <React.Fragment>{l}<br /></React.Fragment>)}</p> */}
                   <p>{this.parse(sub.body)}</p>
                 </article>
