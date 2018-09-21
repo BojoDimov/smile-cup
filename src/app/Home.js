@@ -25,7 +25,7 @@ export default class Home extends React.Component {
                 <section class="col-6 col-12-narrower feature">
                   <div class="image-wrapper first">
                     <Link to={`/news/${e.id}`} class="image featured first">
-                      {e.fileId ? <img style={{ maxHeight: '25rem', width: 'auto', margin: 'auto' }} src={imgUrl(e.fileId)} alt="" /> : null}
+                      {e.fileId ? <img style={{ maxHeight: '25rem', width: 'auto', maxWidth: '100%', margin: 'auto' }} src={imgUrl(e.fileId)} alt="" /> : null}
                     </Link>
                   </div>
                   <header>

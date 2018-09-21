@@ -44,7 +44,7 @@ export default class NewsView extends React.Component {
             <React.Fragment>
               <article id="content">
                 {this.state.news.fileId ?
-                  <img style={{ maxHeight: '25rem', width: 'auto', float: 'left', marginRight: '2rem' }}
+                  <img style={{ maxHeight: '25rem', width: 'auto', maxWidth: '100%', float: 'left', marginRight: '2rem' }}
                     src={imgUrl(this.state.news.fileId)}
                     alt="" /> : null}
 
@@ -63,9 +63,12 @@ export default class NewsView extends React.Component {
                     <h3>{sub.heading}</h3>
                   </header>
                   {sub.fileId ?
-                    <img style={{ width: 'auto', maxWidth: '100%', marginTop: '1rem' }}
-                      src={imgUrl(sub.fileId)}
-                      alt="" /> : null}
+                    <div style={{ textAlign: 'center' }}>
+
+                      <img style={{ width: 'auto', maxWidth: '100%', marginTop: '1rem' }}
+                        src={imgUrl(sub.fileId)}
+                        alt="" />
+                    </div> : null}
 
                   {/* <p>{sub.body.split('\n').slice(0, -1).map(l => <React.Fragment>{l}<br /></React.Fragment>)}</p> */}
                   <p>{this.parse(sub.body)}</p>

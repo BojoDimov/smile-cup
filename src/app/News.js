@@ -32,7 +32,7 @@ export default class News extends React.Component {
                   <section className="col-4 col-12-narrower feature">
                     <div className={"image-wrapper" + (i == 0 ? " first" : "")}>
                       <Link to={`/news/${n.id}`} className="image featured">
-                        <img style={{ maxHeight: '15rem', width: 'auto', margin: 'auto' }} src={imgUrl(n.fileId)} />
+                        <img style={{ maxHeight: '15rem', width: 'auto', maxWidth: '100%', margin: 'auto' }} src={imgUrl(n.fileId)} />
                       </Link>
                     </div>
                     <header>
