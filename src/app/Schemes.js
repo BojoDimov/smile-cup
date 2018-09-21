@@ -109,12 +109,12 @@ export default class Schemes extends React.Component {
         confirm: false,
         message: null,
         title: null,
-        name: 'Записване',
+        name: 'Схема',
         class: 'b',
         onClick: (e) => {
           if (e)
             e.stopPropagation();
-          return this.props.history.push(`/login`);
+          return this.props.history.push(`/schemes/${scheme.id}`);
         }
       }
 

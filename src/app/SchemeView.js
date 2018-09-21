@@ -75,7 +75,7 @@ export default class SchemeView extends React.Component {
       team: {},
       showEnrollments: true,
       showQueue: false,
-      showDraw: false,
+      showDraw: true,
     }
   }
 
