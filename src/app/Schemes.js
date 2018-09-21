@@ -196,15 +196,15 @@ export default class Schemes extends React.Component {
       && (!scheme.ageTo || scheme.ageTo > age)) {
       if (new Date() > new Date(scheme.registrationEnd))
         return {
-          confirm: true,
-          message: `Сигурни ли сте че искате да се запишете за турнир "${scheme.name}"?`,
-          title: 'регистрацията е приключила, ще бъдете записан в опашка',
-          name: 'Записване',
+          confirm: false,
+          message: null,
+          title: null,
+          name: 'Схема',
           class: 'b',
           onClick: (e) => {
             if (e)
               e.stopPropagation();
-            return this.enroll(scheme)
+            return this.props.history.push(`/schemes/${scheme.id}`);
           }
         }
       else
@@ -225,12 +225,13 @@ export default class Schemes extends React.Component {
       return {
         confirm: false,
         message: null,
-        title: 'не отговаряте на изискванията за тази схема',
-        name: 'Записване',
-        class: 'disabled',
+        title: null,
+        name: 'Схема',
+        class: 'b',
         onClick: (e) => {
           if (e)
-            e.stopPropagation()
+            e.stopPropagation();
+          return this.props.history.push(`/schemes/${scheme.id}`);
         }
       }
   }
