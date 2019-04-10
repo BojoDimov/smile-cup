@@ -5,8 +5,8 @@ module.exports = {
     tournamentId: 1
   },
   production: {
-    frontend: "http://www.smilevent.net",
-    backend: "http://104.199.101.33:8080/api",
+    frontend: "http://www.smileevent.net",
+    backend: "http://smileevent:8080/api",
     tournamentId: 1
   }
 }
